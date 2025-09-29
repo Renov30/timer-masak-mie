@@ -43,7 +43,34 @@
         </div>
       </div>
     </div>
-
+    <!-- halaman 2 -->
+    <div id="hal2" class="hidden flex flex-col items-center">
+      <div class="relative">
+        <img src="img/ani1.webp" alt="talk1" class="z-0" />
+        <p
+          style="font-family: 'Pixelify Sans', sans-serif"
+          class="text-white text-center mb-5 z-10 absolute inset-0 flex items-center justify-center top-47"
+        >
+          don't forget to add some vegies, okay!
+        </p>
+        <img
+          src="img/talk1.png"
+          alt="talkview"
+          class="w-8 z-10 absolute inset-0 top-84 left-64"
+        />
+        <div class="absolute inset-0 flex justify-end top-82 z-10">
+          <button onclick="next2()" class="relative">
+            <img src="img/btn2empt.png" alt="button-bg" class="w-40 h-auto" />
+            <span
+              style="font-family: 'Pixelify Sans', sans-serif"
+              class="absolute inset-0 flex items-center justify-center text-white font-bold"
+            >
+              next
+            </span>
+          </button>
+        </div>
+      </div>
+    </div>
     <!-- rancangan -->
     <div
       id="siapa"
@@ -115,5 +142,12 @@
       </div>
     </div>
   </body>
-  <script></script>
+  <script>
+    const hal2 = document.getElementById("hal2");
+    const hal1 = document.getElementById("hal1");
+    function next1() {
+      hal2.classList.remove("hidden");
+      hal1.classList.add("hidden");
+    }
+  </script>
 </html>
