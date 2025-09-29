@@ -20,10 +20,11 @@
       <div class="relative">
         <img src="img/ani2.webp" alt="talk1" class="z-0" />
         <p
+          id="textHal1"
           style="font-family: 'Pixelify Sans', sans-serif"
-          class="text-white text-center mb-5 z-10 absolute inset-0 flex items-center justify-center top-47"
+          class="text-white text-center mx-7 z-10 absolute inset-0 flex items-center justify-center top-43"
         >
-          instant noodle again, really?
+          -
         </p>
         <img
           src="img/talk1.png"
@@ -49,9 +50,9 @@
         <img src="img/ani1.webp" alt="talk1" class="z-0" />
         <p
           style="font-family: 'Pixelify Sans', sans-serif"
-          class="text-white text-center mb-5 z-10 absolute inset-0 flex items-center justify-center top-47"
+          class="text-white text-center mx-7 z-10 absolute inset-0 flex items-center justify-center top-43"
         >
-          don't forget to add some vegies, okay!
+          anyway, what kinda noodle you wanna cook this time?
         </p>
         <img
           src="img/talk1.png"
@@ -145,9 +146,44 @@
   <script>
     const hal2 = document.getElementById("hal2");
     const hal1 = document.getElementById("hal1");
+    const textHal1 = document.getElementById("textHal1");
+
+    const conversation = [
+      [
+        "instant noodle again, really?",
+        "you know.. you really should eat something else",
+        "i mean, look at you",
+      ],
+      [
+        "back again huh?",
+        "what? are you trying to save money to buy an iphone?",
+        ".. not worth it pal",
+      ],
+      [
+        "let me guess, this is not the first instant noodle you cook this month",
+        "i don't know who you are, but i'll eat some more vegies if i were you",
+        "you don't want gerd don't you",
+      ],
+    ];
+
+    // pilih conversation nya, hasilkan angka random dikali panjang conversation, jadi karena array dalam array maka array yg didalam ada 3, jadi angka random 0-0.99 dikali 1-3
+    const chooseConversation =
+      conversation[Math.floor(Math.random() * conversation.length)];
+
+    // pakai let biar bisa diubah nilainya, dikasih 0 biar dipilih yang paling awal
+    let indexConversationHal1 = 0;
+    // tampilkan text dimana conversation yang dipilih dengan urutan teks yang pertama
+    textHal1.textContent = chooseConversation[indexConversationHal1];
+
     function next1() {
-      hal2.classList.remove("hidden");
-      hal1.classList.add("hidden");
+      // kalau urutannya lebih kecil dari panjang conversation yang dipilih contoh 3 maka dia dikurang 1 karena mulainya dari 0
+      if (indexConversationHal1 < chooseConversation.length - 1) {
+        indexConversationHal1++;
+        textHal1.textContent = chooseConversation[indexConversationHal1];
+      } else {
+        hal2.classList.remove("hidden");
+        hal1.classList.add("hidden");
+      }
     }
   </script>
 </html>

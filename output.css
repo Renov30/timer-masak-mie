@@ -200,6 +200,12 @@
   .top-10 {
     top: calc(var(--spacing) * 10);
   }
+  .top-43 {
+    top: calc(var(--spacing) * 43);
+  }
+  .top-44 {
+    top: calc(var(--spacing) * 44);
+  }
   .top-45 {
     top: calc(var(--spacing) * 45);
   }
@@ -269,8 +275,17 @@
   .z-20 {
     z-index: 20;
   }
+  .m-5 {
+    margin: calc(var(--spacing) * 5);
+  }
   .m-10 {
     margin: calc(var(--spacing) * 10);
+  }
+  .mx-5 {
+    margin-inline: calc(var(--spacing) * 5);
+  }
+  .mx-7 {
+    margin-inline: calc(var(--spacing) * 7);
   }
   .mx-10 {
     margin-inline: calc(var(--spacing) * 10);
