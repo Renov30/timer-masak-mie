@@ -72,6 +72,45 @@
         </div>
       </div>
     </div>
+    <!-- hal3 -->
+    <div id="hal3" class="hidden mt-15">
+      <div class="relative flex flex-col items-center justify-center">
+        <div class="flex items-center justify-center relative">
+          <p
+            style="font-family: 'Pixelify Sans', sans-serif"
+            class="absolute z-20 text-white"
+          >
+            mie biasa
+          </p>
+          <img src="img/title.png" alt="title" />
+        </div>
+        <div class="flex items-center">
+          <button class="w-20 h-20">
+            <img src="img/prev.png" alt="prev" />
+          </button>
+          <img src="img/noodle1.png" alt="noodle" class="w-50 h-50" />
+          <button class="w-20 h-20">
+            <img src="img/next.png" alt="next" />
+          </button>
+        </div>
+        <div class="relative flex items-center justify-center">
+          <p
+            style="font-family: 'Pixelify Sans', sans-serif"
+            class="text-white absolute z-10 mx-12 text-center"
+          >
+            waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.
+          </p>
+          <img src="img/detail.png" alt="detail" />
+        </div>
+        <button class="relative">
+          <img src="img/start.png" alt="start" class="w-40 h-auto" />
+          <span
+            class="absolute inset-0 flex items-center justify-center text-white font-bold"
+            >start</span
+          >
+        </button>
+      </div>
+    </div>
     <!-- rancangan -->
     <div
       id="siapa"
@@ -184,6 +223,11 @@
         hal2.classList.remove("hidden");
         hal1.classList.add("hidden");
       }
+    }
+
+    function next2() {
+      hal2.classList.add("hidden");
+      hal3.classList.remove("hidden");
     }
   </script>
 </html>
