@@ -3,12 +3,14 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- my font -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
+    <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
     <title>MieTime</title>
   </head>
@@ -16,7 +18,7 @@
     class="mx-10 flex justify-center min-h-screen items-center bg-gradient-to-b from-[#ff9433] to-[#ffb640]"
   >
     <!-- halaman 1 -->
-    <div id="hal1" class="flex flex-col items-center">
+    <div id="hal1" class="hidden flex flex-col items-center">
       <div class="relative">
         <img src="img/ani2.webp" alt="talk1" class="z-0" />
         <p
@@ -72,29 +74,36 @@
         </div>
       </div>
     </div>
-    <!-- hal3 -->
-    <div id="hal3" class="hidden mt-15">
+    <!-- halaman 3 -->
+    <div id="hal3" class="mt-15">
       <div class="relative flex flex-col items-center justify-center">
         <div class="flex items-center justify-center relative">
           <p
+            id="title"
             style="font-family: 'Pixelify Sans', sans-serif"
             class="absolute z-20 text-white"
           >
-            mie biasa
+            mie kuah biasa
           </p>
           <img src="img/title.png" alt="title" />
         </div>
         <div class="flex items-center">
-          <button class="w-20 h-20">
+          <button id="prevBtn" class="w-20 h-20">
             <img src="img/prev.png" alt="prev" />
           </button>
-          <img src="img/noodle1.png" alt="noodle" class="w-50 h-50" />
-          <button class="w-20 h-20">
+          <img
+            id="noodleImg"
+            src="img/noodle1.png"
+            alt="noodle"
+            class="w-50 h-50"
+          />
+          <button id="nextBtn" class="w-20 h-20">
             <img src="img/next.png" alt="next" />
           </button>
         </div>
         <div class="relative flex items-center justify-center">
           <p
+            id="detail"
             style="font-family: 'Pixelify Sans', sans-serif"
             class="text-white absolute z-10 mx-12 text-center"
           >
@@ -102,7 +111,7 @@
           </p>
           <img src="img/detail.png" alt="detail" />
         </div>
-        <button class="relative">
+        <button id="startCnt" class="relative">
           <img src="img/start.png" alt="start" class="w-40 h-auto" />
           <span
             class="absolute inset-0 flex items-center justify-center text-white font-bold"
@@ -182,11 +191,14 @@
       </div>
     </div>
   </body>
+  <!-- javascript -->
   <script>
-    const hal2 = document.getElementById("hal2");
+    // script bicara untuk animasi hal 1
+    // variabel hal 1 dan 2
     const hal1 = document.getElementById("hal1");
+    const hal2 = document.getElementById("hal2");
     const textHal1 = document.getElementById("textHal1");
-
+    // array pembicaraan animasi hal 1
     const conversation = [
       [
         "instant noodle again, really?",
@@ -204,30 +216,79 @@
         "you don't want gerd don't you",
       ],
     ];
-
-    // pilih conversation nya, hasilkan angka random dikali panjang conversation, jadi karena array dalam array maka array yg didalam ada 3, jadi angka random 0-0.99 dikali 1-3
+    // pilih conversation dari array: hasilkan angka random dikali jumlah array, jadi karena array (3) maka angka random 0-0.99 dikali 1-3 = contoh hasilnya 0.7 = 1
     const chooseConversation =
       conversation[Math.floor(Math.random() * conversation.length)];
 
+    // variabel untuk selalu pilih urutan percakapan pertama dalam array
     // pakai let biar bisa diubah nilainya, dikasih 0 biar dipilih yang paling awal
     let indexConversationHal1 = 0;
     // tampilkan text dimana conversation yang dipilih dengan urutan teks yang pertama
     textHal1.textContent = chooseConversation[indexConversationHal1];
 
+    // fungsi ganti ke urutan percakapan selanjutnya
     function next1() {
       // kalau urutannya lebih kecil dari panjang conversation yang dipilih contoh 3 maka dia dikurang 1 karena mulainya dari 0
       if (indexConversationHal1 < chooseConversation.length - 1) {
+        // tambah nilai untuk ganti urutan
         indexConversationHal1++;
+        // masukan ke html
         textHal1.textContent = chooseConversation[indexConversationHal1];
       } else {
         hal2.classList.remove("hidden");
         hal1.classList.add("hidden");
       }
     }
-
+    // fungsi ganti hal2 ke hal3
     function next2() {
       hal2.classList.add("hidden");
       hal3.classList.remove("hidden");
     }
+    // script untuk pilih menu hal 3
+    const noodles = [
+      {
+        title: "mie kuah biasa",
+        img: "img/noodle1.png",
+        detail: "waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.",
+      },
+      {
+        title: "mie goreng pedas",
+        img: "img/noodle1.png",
+        detail: "waktu masak 7 menit. cocok untuk kamu yang kurang kehangatan.",
+      },
+      {
+        title: "mie bego",
+        img: "img/noodle1.png",
+        detail:
+          "waktu masak 1.5 menit. cocok untuk kamu yang kurang kehangatan.",
+      },
+    ];
+
+    let mieIndex = 0;
+
+    const titleNoodle = document.getElementById("title");
+    const imgNoodle = document.getElementById("noodleImg");
+    const detailNoodle = document.getElementById("detail");
+    const prev = document.getElementById("prevBtn");
+    const next = document.getElementById("nextBtn");
+
+    function gantiMie() {
+      const mie = noodles[mieIndex];
+      titleNoodle.textContent = mie.title;
+      imgNoodle.src = mie.img;
+      detailNoodle.textContent = mie.detail;
+    }
+
+    next.addEventListener("click", () => {
+      mieIndex = (mieIndex + 1) % noodles.length;
+      gantiMie();
+    });
+
+    prev.addEventListener("click", () => {
+      mieIndex = (mieIndex - 1 + noodles.length) % noodles.length;
+      gantiMie();
+    });
+
+    gantiMie();
   </script>
 </html>
