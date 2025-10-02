@@ -15,7 +15,7 @@
     <title>MieTime</title>
   </head>
   <body
-    class="mx-10 flex justify-center min-h-screen items-center bg-gradient-to-b from-[#ff9433] to-[#ffb640]"
+    class="mx-5 flex justify-center min-h-screen items-center bg-gradient-to-b from-[#ff9433] to-[#ffb640]"
   >
     <!-- halaman 1 -->
     <div id="hal1" class="hidden flex flex-col items-center">
@@ -198,7 +198,7 @@
     const hal1 = document.getElementById("hal1");
     const hal2 = document.getElementById("hal2");
     const textHal1 = document.getElementById("textHal1");
-    // array pembicaraan animasi hal 1
+    // variabel array pembicaraan animasi hal 1
     const conversation = [
       [
         "instant noodle again, really?",
@@ -245,6 +245,7 @@
       hal3.classList.remove("hidden");
     }
     // script untuk pilih menu hal 3
+    // variabel object informasi mie
     const noodles = [
       {
         title: "mie kuah biasa",
@@ -252,43 +253,45 @@
         detail: "waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.",
       },
       {
-        title: "mie goreng pedas",
+        title: "mie setengah matang",
         img: "img/noodle1.png",
-        detail: "waktu masak 7 menit. cocok untuk kamu yang kurang kehangatan.",
+        detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
       },
       {
-        title: "mie bego",
+        title: "mie benyek",
         img: "img/noodle1.png",
         detail:
-          "waktu masak 1.5 menit. cocok untuk kamu yang kurang kehangatan.",
+          "waktu masak 5 menit. kamu suka yang kenyal dan sedikit air? cocok nih.",
       },
     ];
-
+    // variabel mie ke berapa
     let mieIndex = 0;
-
+    // variabel komponen informasi mie
     const titleNoodle = document.getElementById("title");
     const imgNoodle = document.getElementById("noodleImg");
     const detailNoodle = document.getElementById("detail");
     const prev = document.getElementById("prevBtn");
     const next = document.getElementById("nextBtn");
-
+    // fungsi ganti mie
     function gantiMie() {
       const mie = noodles[mieIndex];
       titleNoodle.textContent = mie.title;
       imgNoodle.src = mie.img;
       detailNoodle.textContent = mie.detail;
     }
-
+    // event listener kalau tombol next ditekan
     next.addEventListener("click", () => {
+      // tambah index untuk ganti mie
       mieIndex = (mieIndex + 1) % noodles.length;
       gantiMie();
     });
-
+    // event listener kalau tombol prev ditekan
     prev.addEventListener("click", () => {
+      // kurangi index kemudian tambahkan dengan jumlah objek di satu array
       mieIndex = (mieIndex - 1 + noodles.length) % noodles.length;
       gantiMie();
     });
-
+    // inisialisai
     gantiMie();
   </script>
 </html>
