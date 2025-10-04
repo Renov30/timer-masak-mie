@@ -10,6 +10,26 @@
       href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400..700&display=swap"
       rel="stylesheet"
     />
+    <!-- my font 2 -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Jersey+20&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      .pixelify {
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+      }
+
+      .jersey20 {
+        font-family: "Jersey 20", sans-serif;
+        font-weight: 400;
+        font-style: normal;
+      }
+    </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
     <title>MieTime</title>
@@ -24,8 +44,7 @@
           <img src="img/ani2.webp" alt="talk1" class="z-0" />
           <p
             id="textHal1"
-            style="font-family: 'Pixelify Sans', sans-serif"
-            class="text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center top-50"
+            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center top-50"
           >
             -
           </p>
@@ -41,10 +60,9 @@
           <button onclick="next1()" class="relative">
             <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
             <span
-              style="font-family: 'Pixelify Sans', sans-serif"
-              class="absolute inset-0 flex items-center justify-center text-white font-bold"
+              class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
             >
-              next
+              NEXT
             </span>
           </button>
         </div>
@@ -56,8 +74,7 @@
         <div class="relative">
           <img src="img/ani2.webp" alt="talk1" class="z-0" />
           <p
-            style="font-family: 'Pixelify Sans', sans-serif"
-            class="text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center top-50"
+            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center top-50"
           >
             anyway, what kinda noodle you wanna cook this time?
           </p>
@@ -73,10 +90,9 @@
           <button onclick="next2()" class="relative">
             <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
             <span
-              style="font-family: 'Pixelify Sans', sans-serif"
-              class="absolute inset-0 flex items-center justify-center text-white font-bold"
+              class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
             >
-              next
+              NEXT
             </span>
           </button>
         </div>
@@ -86,11 +102,7 @@
     <div id="hal3" class="hidden mt-15">
       <div class="relative flex flex-col items-center justify-center">
         <div class="flex items-center justify-center relative mb-5">
-          <p
-            id="title"
-            style="font-family: 'Pixelify Sans', sans-serif"
-            class="absolute z-20 text-white"
-          >
+          <p id="title" class="pixelify absolute z-20 text-white">
             mie kuah biasa
           </p>
           <img src="img/title.png" alt="title" />
@@ -112,18 +124,17 @@
         <div class="relative flex items-center justify-center mx-5">
           <p
             id="detail"
-            style="font-family: 'Pixelify Sans', sans-serif"
-            class="text-white absolute z-10 mx-5 text-center"
+            class="pixelify text-white absolute z-10 mx-5 text-center"
           >
             waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.
           </p>
           <img src="img/detail.png" alt="detail" />
         </div>
-        <button onclick="startTimer()" class="relative">
-          <img src="img/start.png" alt="start" class="w-40 h-auto" />
+        <button onclick="startTimer()" class="relative w-45 h-auto">
+          <img src="img/start.png" alt="start" />
           <span
             class="absolute inset-0 flex items-center justify-center text-white font-bold"
-            >start</span
+            >START</span
           >
         </button>
       </div>
@@ -132,25 +143,16 @@
     <div id="hal4" class="hidden mx-5">
       <div class="flex flex-col justify-center items-center">
         <img src="img/noodle1.png" alt="cooking" class="w-60 h-auto" />
-        <p
-          style="font-family: 'Pixelify Sans', sans-serif"
-          class="text-center text-white"
-        >
+        <p class="pixelify text-center text-white">
           mie kamu akan masak dalam :
         </p>
-        <h1
-          style="font-family: 'Pixelify Sans', sans-serif"
-          class="text-8xl text-white text-center"
-        >
-          03:00
-        </h1>
+        <h1 class="jersey20 text-8xl text-white text-center">03:00</h1>
       </div>
       <div class="flex">
         <button class="relative w-45 h-auto">
           <img src="img/start.png" alt="pause" />
           <p
-            style="font-family: 'Pixelify Sans', sans-serif"
-            class="absolute inset-0 flex items-center justify-center z-10 text-white"
+            class="pixelify absolute inset-0 flex items-center justify-center z-10 text-white"
           >
             STOP
           </p>
@@ -158,8 +160,7 @@
         <button class="relative w-45 h-auto">
           <img src="img/start.png" alt="pause" />
           <p
-            style="font-family: 'Pixelify sans', sans-serif"
-            class="absolute z-10 inset-0 flex items-center justify-center text-white"
+            class="pixelify absolute z-10 inset-0 flex items-center justify-center text-white"
           >
             PAUSE
           </p>
@@ -227,17 +228,20 @@
         title: "mie kuah biasa",
         img: "img/noodle1.png",
         detail: "waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.",
+        time: 180,
       },
       {
         title: "mie setengah matang",
         img: "img/noodle1.png",
         detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
+        time: 60,
       },
       {
         title: "mie benyek",
         img: "img/noodle1.png",
         detail:
           "waktu masak 5 menit. kamu suka yang kenyal dan sedikit air? cocok nih.",
+        time: 300,
       },
     ];
     // variabel mie ke berapa
@@ -272,9 +276,33 @@
 
     // script halaman timer
     const hal4 = document.getElementById("hal4");
+    let countDown;
+    const timerDisplay = hal4.querySelector("h1");
     function startTimer() {
       hal3.classList.add("hidden");
       hal4.classList.remove("hidden");
+
+      clearInterval(countDown);
+
+      let timeLeft = noodles[mieIndex].time;
+
+      updateTimerDisplay(timeLeft);
+
+      countDown = setInterval(() => {
+        timeLeft--;
+        updateTimerDisplay(timeLeft);
+
+        if (timeLeft <= 0) {
+          clearInterval(countDown);
+          timerDisplay.textContent = "SELESAI!";
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay(seconds) {
+      const min = String(Math.floor(seconds / 60)).padStart(2, "0");
+      const sec = String(seconds % 60).padStart(2, "0");
+      timerDisplay.textContent = `${min}:${sec}`;
     }
   </script>
 </html>
