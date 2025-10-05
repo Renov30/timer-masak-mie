@@ -38,7 +38,7 @@
     class="flex justify-center min-h-screen items-center bg-gradient-to-b from-[#ff9433] to-[#ffb640]"
   >
     <!-- halaman 1 -->
-    <div id="hal1" class="mx-5">
+    <div id="hal1" class="hidden mx-5">
       <div class="relative">
         <div class="relative">
           <img src="img/ani2.webp" alt="talk1" class="z-0" />
@@ -99,45 +99,99 @@
       </div>
     </div>
     <!-- halaman 3 -->
-    <div id="hal3" class="hidden mt-15">
-      <div class="relative flex flex-col items-center justify-center">
-        <div class="flex items-center justify-center relative mb-5">
-          <p id="title" class="pixelify absolute z-20 text-white">
-            mie kuah biasa
-          </p>
-          <img src="img/title.png" alt="title" />
-        </div>
+    <div id="hal3" class="w-full mx-5 mt-10">
+      <div class="flex flex-col justify-center items-center">
         <div class="flex items-center">
-          <button id="prevBtn" class="w-25 h-25">
-            <img src="img/prev.png" alt="prev" />
-          </button>
           <img
             id="noodleImg"
             src="img/noodle1.png"
             alt="noodle"
             class="w-50 h-50"
           />
-          <button id="nextBtn" class="w-25 h-25">
-            <img src="img/next.png" alt="next" />
+        </div>
+        <div class="flex items-center justify-center w-full mb-3">
+          <button id="prevBtn">
+            <img
+              src="img/prev.png"
+              alt="prev"
+              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            />
+          </button>
+          <div class="w-full relative bg-amber-400">
+            <div class="absolute inset-0 flex flex-col justify-center">
+              <p
+                id="title"
+                class="text-xl font-bold pixelify text-white text-center"
+              >
+                mie kuah biasa
+              </p>
+              <p id="detail" class="pixelify text-white text-center mx-2">-</p>
+            </div>
+            <img src="img/detail.png" alt="detail" />
+          </div>
+          <button id="nextBtn">
+            <img
+              src="img/next.png"
+              alt="next"
+              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            />
           </button>
         </div>
-        <div class="relative flex items-center justify-center mx-5">
-          <p
-            id="detail"
-            class="pixelify text-white absolute z-10 mx-5 text-center"
-          >
-            waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.
-          </p>
-          <img src="img/detail.png" alt="detail" />
+        <div class="flex justify-center w-full">
+          <button onclick="startTimer()" class="relative w-40 h-auto">
+            <img src="img/start.png" alt="start" />
+            <span
+              class="absolute inset-0 flex items-center justify-center text-white font-bold"
+              >START</span
+            >
+          </button>
         </div>
-        <button onclick="startTimer()" class="relative w-45 h-auto">
-          <img src="img/start.png" alt="start" />
-          <span
-            class="absolute inset-0 flex items-center justify-center text-white font-bold"
-            >START</span
-          >
-        </button>
       </div>
+      <!-- <div class="flex flex-col justify-center items-center">
+        <div class="flex items-center mb-3">
+          <img
+            id="noodleImg"
+            src="img/noodle1.png"
+            alt="noodle"
+            class="w-50 h-50"
+          />
+        </div>
+        <div class="flex items-center justify-center w-full mb-5">
+          <button id="prevBtn">
+            <img
+              src="img/prev.png"
+              alt="prev"
+              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            />
+          </button>
+          <div class="w-full">
+            <p
+              id="title"
+              class="text-xl font-bold pixelify text-white text-center"
+            >
+              mie kuah biasa
+            </p>
+            <p id="detail" class="pixelify text-white text-center">-</p>
+          </div>
+          <button id="nextBtn">
+            <img
+              src="img/next.png"
+              alt="next"
+              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            />
+          </button>
+          <!-- <img src="img/detail.png" alt="detail" /> -->
+      <!-- </div>
+        <div class="flex justify-center w-full">
+          <button onclick="startTimer()" class="relative w-40 h-auto">
+            <img src="img/start.png" alt="start" />
+            <span
+              class="absolute inset-0 flex items-center justify-center text-white font-bold"
+              >START</span
+            >
+          </button>
+        </div>
+      </div> -->
     </div>
     <!-- halaman 4 -->
     <div id="hal4" class="hidden mx-5">
@@ -149,7 +203,7 @@
         <h1 class="jersey20 text-8xl text-white text-center">03:00</h1>
       </div>
       <div class="flex">
-        <button class="relative w-45 h-auto">
+        <button class="relative w-40 h-auto">
           <img src="img/start.png" alt="pause" />
           <p
             class="pixelify absolute inset-0 flex items-center justify-center z-10 text-white"
@@ -157,7 +211,7 @@
             STOP
           </p>
         </button>
-        <button class="relative w-45 h-auto">
+        <button class="relative w-40 h-auto">
           <img src="img/start.png" alt="pause" />
           <p
             class="pixelify absolute z-10 inset-0 flex items-center justify-center text-white"
@@ -227,7 +281,7 @@
       {
         title: "mie kuah biasa",
         img: "img/noodle1.png",
-        detail: "waktu masak 3 menit. cocok untuk kamu yang kurang kehangatan.",
+        detail: "waktu masak 3 menit. cocok buat kamu yang suka mie kuah.",
         time: 180,
       },
       {
@@ -239,8 +293,7 @@
       {
         title: "mie benyek",
         img: "img/noodle1.png",
-        detail:
-          "waktu masak 5 menit. kamu suka yang kenyal dan sedikit air? cocok nih.",
+        detail: "waktu masak 5 menit. cocok kalau kamu orangnya aneh.",
         time: 300,
       },
     ];
