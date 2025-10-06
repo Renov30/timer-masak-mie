@@ -19,6 +19,7 @@
     />
 
     <style>
+      /* css untuk font */
       .pixelify {
         font-family: "Pixelify Sans", sans-serif;
         font-optical-sizing: auto;
@@ -28,6 +29,24 @@
         font-family: "Jersey 20", sans-serif;
         font-weight: 400;
         font-style: normal;
+      }
+
+      /* css untuk animasi talkview */
+      @keyframes blinkMove {
+        0%,
+        100% {
+          opacity: 0;
+          transform: translateY(0);
+        }
+
+        50% {
+          opacity: 1;
+          transform: translateY(5px);
+        }
+      }
+
+      .animate-talk {
+        animation: blinkMove 1.5s infinite ease-in-out;
       }
     </style>
     <!-- tailwind css -->
@@ -47,8 +66,8 @@
         >
           -
         </p>
-        <div class="absolute inset-0 z-10 flex items-end justify-end mb-6 mr-7">
-          <img src="img/talk1.png" alt="talkview" class="w-8" />
+        <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
+          <img src="img/talk1.png" alt="talkview" class="w-8 animate-talk" />
         </div>
       </div>
       <div class="flex justify-end">
@@ -73,8 +92,8 @@
         >
           anyway, what kinda noodle you wanna cook this time?
         </p>
-        <div class="absolute inset-0 z-10 flex items-end justify-end mb-6 mr-7">
-          <img src="img/talk1.png" alt="talkview" class="w-8" />
+        <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
+          <img src="img/talk1.png" alt="talkview" class="w-8 animate-talk" />
         </div>
       </div>
       <div class="flex justify-end">
@@ -177,17 +196,17 @@
     // variabel array pembicaraan animasi hal 1
     const conversation = [
       [
-        "instant noodle again, really?",
+        "makan mie lagi?",
         "you know.. you really should eat something else",
         "i mean, look at you",
       ],
       [
-        "back again huh?",
+        "mie instan lagi?",
         "what? are you trying to save money to buy an iphone?",
         ".. not worth it pal",
       ],
       [
-        "let me guess, this is not the first instant noodle you cook this month",
+        "udah berapa kali lu makan mie bulan ini?",
         "i don't know who you are, but i'll eat some more vegies if i were you",
         "you don't want gerd don't you",
       ],
