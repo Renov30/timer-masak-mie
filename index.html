@@ -99,51 +99,51 @@
       </div>
     </div>
     <!-- halaman 3 -->
-    <div id="hal3" class="w-full mx-5 mt-10">
+    <div id="hal3" class="w-full">
       <div class="flex flex-col justify-center items-center">
         <div class="flex items-center">
           <img
             id="noodleImg"
             src="img/noodle1.png"
             alt="noodle"
-            class="w-50 h-50"
+            class="w-60 h-auto"
           />
         </div>
-        <div class="flex items-center justify-center w-full mb-3">
+
+        <div class="mx-8 flex items-center justify-center relative mb-3">
+          <div class="absolute inset-0 flex flex-col justify-center">
+            <p
+              id="title"
+              class="text-xl font-bold pixelify text-white text-center"
+            >
+              mie kuah biasa
+            </p>
+            <p id="detail" class="pixelify text-white text-center mx-5">-</p>
+          </div>
+          <img src="img/detail.png" alt="detail" />
+        </div>
+
+        <div class="flex justify-center w-full">
           <button id="prevBtn">
             <img
               src="img/prev.png"
               alt="prev"
-              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+              class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
             />
           </button>
-          <div class="w-full relative bg-amber-400">
-            <div class="absolute inset-0 flex flex-col justify-center">
-              <p
-                id="title"
-                class="text-xl font-bold pixelify text-white text-center"
-              >
-                mie kuah biasa
-              </p>
-              <p id="detail" class="pixelify text-white text-center mx-2">-</p>
-            </div>
-            <img src="img/detail.png" alt="detail" />
-          </div>
-          <button id="nextBtn">
-            <img
-              src="img/next.png"
-              alt="next"
-              class="w-8 h-8 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
-            />
-          </button>
-        </div>
-        <div class="flex justify-center w-full">
           <button onclick="startTimer()" class="relative w-40 h-auto">
             <img src="img/start.png" alt="start" />
             <span
               class="absolute inset-0 flex items-center justify-center text-white font-bold"
               >START</span
             >
+          </button>
+          <button id="nextBtn">
+            <img
+              src="img/next.png"
+              alt="next"
+              class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+            />
           </button>
         </div>
       </div>
@@ -208,7 +208,7 @@
           <p
             class="pixelify absolute inset-0 flex items-center justify-center z-10 text-white"
           >
-            STOP
+            RESET
           </p>
         </button>
         <button class="relative w-40 h-auto">
