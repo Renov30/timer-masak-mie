@@ -61,6 +61,13 @@
   <body
     class="flex justify-center min-h-screen items-center bg-gradient-to-b from-[#ff9433] to-[#ffb640]"
   >
+    <button
+      id="toggleBGM"
+      class="fixed top-5 left-10 bg-amber-600 text-white px-3 py-2 rounded-xl"
+    >
+      🔇
+    </button>
+    <audio id="bgm" src="audio/journey.mp3" loop></audio>
     <!-- halaman 1 -->
     <div id="hal1" class="mx-5">
       <div class="relative">
@@ -239,17 +246,29 @@
     // pakai let biar bisa diubah nilainya, dikasih 0 biar dipilih yang paling awal
     let indexConversationHal1 = 0;
 
+    // buat objek audio global biar bisa dipakai ulang
+    const typingSound = new Audio("audio/soft-hit-2.wav");
+    typingSound.volume = 0.1; // atur volume biar nggak berisik
+
+    // fungsi untuk memutar ulang suara tiap huruf
+    function playTypingSound() {
+      // kloning audio biar bisa overlap antar huruf (tanpa delay)
+      const sound = typingSound.cloneNode();
+      sound.play();
+    }
+
     // fungsi animasi ngetik teks
     function typeText(text, callback) {
       textHal1.textContent = "";
       talkView.classList.add("hidden-talk"); // sembunyikan & matikan animasi
 
       let i = 0;
-      const speed = 30;
+      const speed = 40;
 
       const typing = setInterval(() => {
         if (i < text.length) {
           textHal1.textContent += text.charAt(i);
+          playTypingSound();
           i++;
         } else {
           clearInterval(typing);
@@ -299,11 +318,12 @@
       talkView2.classList.add("hidden-talk"); // sembunyikan segitiga
 
       let i = 0;
-      const speed = 30;
+      const speed = 40;
 
       const typing = setInterval(() => {
         if (i < text.length) {
           textHal2.textContent += text.charAt(i);
+          playTypingSound();
           i++;
         } else {
           clearInterval(typing);
@@ -449,5 +469,21 @@
       pauseBtn.querySelector("p").textContent = "PAUSE";
       countDown = setInterval(tick, 1000);
     }
+
+    const toggleBtn = document.getElementById("toggleBGM");
+    let bgmPlaying = false;
+
+    toggleBtn.addEventListener("click", () => {
+      if (bgmPlaying) {
+        bgm.pause();
+        toggleBtn.textContent = "🔇";
+        // toggleBtn.textContent = "🔇 Music Off";
+      } else {
+        bgm.play();
+        toggleBtn.textContent = "🔈";
+        // toggleBtn.textContent = "🔈 Music On";
+      }
+      bgmPlaying = !bgmPlaying;
+    });
   </script>
 </html>
