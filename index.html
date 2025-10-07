@@ -48,6 +48,11 @@
       .animate-talk {
         animation: blinkMove 1.5s infinite ease-in-out;
       }
+
+      .hidden-talk {
+        opacity: 0;
+        animation: none !important;
+      }
     </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
@@ -67,7 +72,12 @@
           -
         </p>
         <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
-          <img src="img/talk1.png" alt="talkview" class="w-8 animate-talk" />
+          <img
+            id="talkview"
+            src="img/talk1.png"
+            alt="talkview"
+            class="w-8 animate-talk hidden-talk"
+          />
         </div>
       </div>
       <div class="flex justify-end">
@@ -87,13 +97,18 @@
       <div class="relative">
         <img src="img/ani1.png" alt="talk1" class="z-0" />
         <p
-          id="textHal1"
+          id="textHal2"
           class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
         >
-          anyway, what kinda noodle you wanna cook this time?
+          -
         </p>
         <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
-          <img src="img/talk1.png" alt="talkview" class="w-8 animate-talk" />
+          <img
+            id="talkview2"
+            src="img/talk1.png"
+            alt="talkview"
+            class="w-8 animate-talk hidden-talk"
+          />
         </div>
       </div>
       <div class="flex justify-end">
@@ -193,15 +208,20 @@
     const hal1 = document.getElementById("hal1");
     const hal2 = document.getElementById("hal2");
     const textHal1 = document.getElementById("textHal1");
+    const talkView = document.getElementById("talkview");
+
+    // sembunyikan talkview
+    talkView.style.opacity = 0;
+
     // variabel array pembicaraan animasi hal 1
     const conversation = [
       [
-        "makan mie lagi?",
+        "makan mie instan lagi?",
         "you know.. you really should eat something else",
         "i mean, look at you",
       ],
       [
-        "mie instan lagi?",
+        "mie trooss...",
         "what? are you trying to save money to buy an iphone?",
         ".. not worth it pal",
       ],
@@ -218,22 +238,83 @@
     // variabel untuk selalu pilih urutan percakapan pertama dalam array
     // pakai let biar bisa diubah nilainya, dikasih 0 biar dipilih yang paling awal
     let indexConversationHal1 = 0;
-    // tampilkan text dimana conversation yang dipilih dengan urutan teks yang pertama
-    textHal1.textContent = chooseConversation[indexConversationHal1];
+
+    // fungsi animasi ngetik teks
+    function typeText(text, callback) {
+      textHal1.textContent = "";
+      talkView.classList.add("hidden-talk"); // sembunyikan & matikan animasi
+
+      let i = 0;
+      const speed = 30;
+
+      const typing = setInterval(() => {
+        if (i < text.length) {
+          textHal1.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typing);
+          // tunggu sedikit lalu tampilkan segitiga
+          setTimeout(() => {
+            talkView.classList.remove("hidden-talk"); // tampilkan + aktifkan animasi lagi
+          }, 200);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+    // tampilkan text dimana conversation yang dipilih dengan urutan teks yang pertama (tapi dalam animasi typing)
+    typeText(chooseConversation[indexConversationHal1]);
 
     // fungsi ganti ke urutan percakapan selanjutnya
     function next1() {
+      // pastikan animasi ngetik selesai sebelum lanjut
+      if (textHal1.textContent !== chooseConversation[indexConversationHal1])
+        return;
+
       // kalau urutannya lebih kecil dari panjang conversation yang dipilih contoh 3 maka dia dikurang 1 karena mulainya dari 0
       if (indexConversationHal1 < chooseConversation.length - 1) {
         // tambah nilai untuk ganti urutan
         indexConversationHal1++;
-        // masukan ke html
-        textHal1.textContent = chooseConversation[indexConversationHal1];
+
+        // masukan ke html (dengan animasi typing)
+        typeText(chooseConversation[indexConversationHal1]);
       } else {
         hal2.classList.remove("hidden");
         hal1.classList.add("hidden");
+
+        // mulai animasi typing di hal2
+        typeTextHal2(textHal2Content);
       }
     }
+    // elemen-elemen halaman 2
+    const hal3 = document.getElementById("hal3"); // misal nanti kamu punya hal3
+    const textHal2 = document.getElementById("textHal2");
+    const talkView2 = document.getElementById("talkview2");
+
+    // teks halaman 2
+    const textHal2Content = "anyway, kamu mau masak mie apa hari ini?";
+
+    // fungsi animasi ngetik untuk hal2
+    function typeTextHal2(text, callback) {
+      textHal2.textContent = "";
+      talkView2.classList.add("hidden-talk"); // sembunyikan segitiga
+
+      let i = 0;
+      const speed = 30;
+
+      const typing = setInterval(() => {
+        if (i < text.length) {
+          textHal2.textContent += text.charAt(i);
+          i++;
+        } else {
+          clearInterval(typing);
+          setTimeout(() => {
+            talkView2.classList.remove("hidden-talk"); // tampilkan segitiga
+          }, 200);
+          if (callback) callback();
+        }
+      }, speed);
+    }
+
     // fungsi ganti hal2 ke hal3
     function next2() {
       hal2.classList.add("hidden");
