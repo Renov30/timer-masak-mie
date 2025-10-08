@@ -345,6 +345,9 @@
   </body>
   <!-- javascript -->
   <script>
+    const clickSound = new Audio("audio/sfx/click.mp3");
+    const selectSound = new Audio("audio/sfx/select.mp3");
+    const pauseSound = new Audio("audio/sfx/toggle.mp3");
     // script bicara untuk animasi hal 1
     // variabel hal 1 dan 2
     const hal1 = document.getElementById("hal1");
@@ -420,6 +423,9 @@
 
     // fungsi ganti ke urutan percakapan selanjutnya
     function next1() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+
       // pastikan animasi ngetik selesai sebelum lanjut
       if (textHal1.textContent !== chooseConversation[indexConversationHal1])
         return;
@@ -473,6 +479,9 @@
 
     // fungsi ganti hal2 ke hal3
     function next2() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+
       // Mulai animasi keluar ke kiri untuk hal2
       hal2.classList.add("exit-left");
       hal2.classList.remove("active");
@@ -496,6 +505,9 @@
     menuBtn.addEventListener("click", gotoMenu);
 
     function gotoMenu() {
+      clickSound.currentTime = 0;
+      clickSound.play();
+
       hal4.classList.add("exit-right");
       hal4.classList.remove("active");
 
@@ -558,6 +570,9 @@
     }
 
     function animateMie(direction) {
+      clickSound.currentTime = 0;
+      clickSound.play();
+
       const oldImg = imgNoodle;
 
       // tentukan animasi arah
@@ -645,6 +660,9 @@
 
     // fungsi mulai timer
     function startTimer() {
+      selectSound.currentTime = 0;
+      selectSound.play();
+
       // sembunyikan hal 3 tampilkan hal 4
       hal3.classList.add("exit-left");
       hal3.classList.remove("active");
@@ -678,6 +696,9 @@
 
     // fungsi pause timer
     function pauseTimer() {
+      pauseSound.currentTime = 0;
+      pauseSound.play();
+
       // toggle pause/resume (bolak balik)
       isPaused = !isPaused;
       // ganti text di tombol
@@ -686,6 +707,9 @@
 
     // fungsi reset timer
     function resetTimer() {
+      pauseSound.currentTime = 0;
+      pauseSound.play();
+
       clearInterval(countDown);
       timeLeft = noodles[mieIndex].time;
       updateTimerDisplay(timeLeft);
@@ -699,6 +723,9 @@
     let bgmPlaying = false;
 
     toggleBtn.addEventListener("click", () => {
+      clickSound.currentTime = 0;
+      clickSound.play();
+
       if (!bgmPlaying) {
         if (!bgm.src) {
           bgm.src = "audio/journey.mp3"; // baru di-set ketika tombol ditekan
