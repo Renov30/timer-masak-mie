@@ -181,8 +181,9 @@
       class="fixed top-5 left-10 bg-amber-600 text-white px-3 py-2 rounded-xl z-99"
     >
       🔇
-      <audio id="bgm" src="audio/journey.mp3" loop></audio>
     </button>
+    <audio id="bgm" loop></audio>
+
     <div id="game-container" class="relative overflow-hidden w-full h-screen">
       <!-- halaman 1 -->
       <div id="hal1" class="page active mx-5">
@@ -694,17 +695,20 @@
     }
 
     const toggleBtn = document.getElementById("toggleBGM");
+    const bgm = document.getElementById("bgm"); // tambahkan ini
     let bgmPlaying = false;
 
     toggleBtn.addEventListener("click", () => {
-      if (bgmPlaying) {
-        bgm.pause();
-        toggleBtn.textContent = "🔇";
-        // toggleBtn.textContent = "🔇 Music Off";
-      } else {
+      if (!bgmPlaying) {
+        if (!bgm.src) {
+          bgm.src = "audio/journey.mp3"; // baru di-set ketika tombol ditekan
+          bgm.type = "audio/mpeg";
+        }
         bgm.play();
         toggleBtn.textContent = "🔈";
-        // toggleBtn.textContent = "🔈 Music On";
+      } else {
+        bgm.pause();
+        toggleBtn.textContent = "🔇";
       }
       bgmPlaying = !bgmPlaying;
     });
