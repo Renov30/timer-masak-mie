@@ -23,6 +23,7 @@
       .pixelify {
         font-family: "Pixelify Sans", sans-serif;
         font-optical-sizing: auto;
+        font-size: 4vw;
       }
 
       .jersey20 {
@@ -176,18 +177,22 @@
     >
       🔇
     </button>
-    <!-- <audio id="bgm" src="audio/journey.mp3" loop></audio> -->
+    <audio id="bgm" src="audio/journey.mp3" loop></audio>
     <div id="game-container" class="relative overflow-hidden w-full h-screen">
       <!-- halaman 1 -->
       <div id="hal1" class="page active mx-5">
-        <div class="relative">
-          <img src="img/ani2.png" alt="talk1" class="z-0" />
-          <p
-            id="textHal1"
-            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
+        <div class="relative bg-green-600">
+          <img src="img/ani2.png" alt="talk1" class="z-0 w-full h-auto" />
+          <div
+            class="absolute inset-0 flex items-center justify-center pt-[55%]"
           >
-            -
-          </p>
+            <p
+              id="textHal1"
+              class="pixelify text-white text-center mx-10 z-10 leading-snug"
+            >
+              -
+            </p>
+          </div>
           <div
             class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7"
           >
