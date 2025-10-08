@@ -348,6 +348,8 @@
     const clickSound = new Audio("audio/sfx/click.mp3");
     const selectSound = new Audio("audio/sfx/select.mp3");
     const pauseSound = new Audio("audio/sfx/toggle.mp3");
+    // const tickSound = new Audio("audio/sfx/tick-tock.mp3");
+    const finishSound = new Audio("audio/sfx/complete.mp3");
     // script bicara untuk animasi hal 1
     // variabel hal 1 dan 2
     const hal1 = document.getElementById("hal1");
@@ -655,6 +657,10 @@
       if (timeLeft <= 0) {
         clearInterval(countDown);
         timerDisplay.textContent = "SELESAI!";
+
+        finishSound.currentTime = 0;
+        finishSound.loop = true;
+        finishSound.play();
       }
     }
 
