@@ -87,6 +87,13 @@
         z-index: 1;
       }
 
+      /* halaman yang keluar ke kanan */
+      .page.exit-right {
+        transform: translateX(100%);
+        opacity: 0;
+        z-index: 1;
+      }
+
       /* biar hidden tetap sembunyi */
       .page.hidden {
         display: none;
@@ -287,6 +294,12 @@
       </div>
       <!-- halaman 4 -->
       <div id="hal4" class="page hidden mx-5">
+        <button
+          id="menuBtn"
+          class="pixelify fixed top-5 right-5 bg-amber-600 text-white px-3 py-2 rounded-xl"
+        >
+          menu
+        </button>
         <div class="flex flex-col justify-center items-center">
           <img src="img/noodle1.png" alt="cooking" class="w-60 h-auto" />
           <p class="pixelify text-center text-white">
@@ -464,6 +477,27 @@
       }, 600); // sesuai durasi transition
     }
 
+    const menuBtn = document.getElementById("menuBtn");
+    menuBtn.addEventListener("click", gotoMenu);
+
+    function gotoMenu() {
+      hal4.classList.add("exit-right");
+      hal4.classList.remove("active");
+
+      hal3.classList.remove("hidden");
+      hal3.style.transform = "translateX(-100%)"; // mulai dari luar kiri
+
+      setTimeout(() => {
+        hal3.classList.add("active");
+      }, 50);
+
+      setTimeout(() => {
+        hal4.classList.add("hidden");
+        hal4.classList.remove("exit-right");
+        hal3.style.transform = ""; // reset inline transform
+      }, 600); // sesuai durasi transition
+    }
+
     // script untuk pilih menu hal 3
     // variabel object informasi mie
     const noodles = [
@@ -489,7 +523,7 @@
         title: "mie goyeng",
         img: "img/noodle3mck.png",
         detail: "waktu masak 3 menit. cocok kalau kamu suka yang kering.",
-        time: 300,
+        time: 180,
       },
     ];
     // variabel mie ke berapa
