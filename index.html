@@ -53,6 +53,108 @@
         opacity: 0;
         animation: none !important;
       }
+
+      .page {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+
+        display: flex; /* Bikin flex container */
+        justify-content: center; /* Tengah horizontal */
+        /* align-items: center; Tengah vertikal */
+        flex-direction: column; /* Susun konten dari atas ke bawah */
+
+        /* width: 100%; */
+        height: 100%; /* tambahkan ini biar tinggi penuh */
+        opacity: 0;
+        transform: translateX(100%);
+        transition: transform 0.6s ease, opacity 0.6s ease;
+      }
+
+      /* halaman yang sedang tampil */
+      .page.active {
+        opacity: 1;
+        transform: translateX(0);
+        z-index: 2;
+      }
+
+      /* halaman yang keluar ke kiri */
+      .page.exit-left {
+        transform: translateX(-100%);
+        opacity: 0;
+        z-index: 1;
+      }
+
+      /* biar hidden tetap sembunyi */
+      .page.hidden {
+        display: none;
+      }
+
+      /* Animasi keluar ke kiri (saat klik next) */
+      .slide-out-left {
+        animation: slideOutLeft 0.4s ease forwards;
+      }
+
+      @keyframes slideOutLeft {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+      }
+
+      /* Animasi masuk dari kanan (saat klik next) */
+      .slide-in-right {
+        animation: slideInRight 0.4s ease forwards;
+      }
+
+      @keyframes slideInRight {
+        from {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      /* Animasi keluar ke kanan (saat klik prev) */
+      .slide-out-right {
+        animation: slideOutRight 0.4s ease forwards;
+      }
+
+      @keyframes slideOutRight {
+        from {
+          opacity: 1;
+          transform: translateX(0);
+        }
+        to {
+          opacity: 0;
+          transform: translateX(100%);
+        }
+      }
+
+      /* Animasi masuk dari kiri (saat klik prev) */
+      .slide-in-left {
+        animation: slideInLeft 0.4s ease forwards;
+      }
+
+      @keyframes slideInLeft {
+        from {
+          opacity: 0;
+          transform: translateX(-100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
     </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
@@ -67,144 +169,149 @@
     >
       🔇
     </button>
-    <audio id="bgm" src="audio/journey.mp3" loop></audio>
-    <!-- halaman 1 -->
-    <div id="hal1" class="mx-5">
-      <div class="relative">
-        <img src="img/ani2.png" alt="talk1" class="z-0" />
-        <p
-          id="textHal1"
-          class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
-        >
-          -
-        </p>
-        <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
-          <img
-            id="talkview"
-            src="img/talk1.png"
-            alt="talkview"
-            class="w-8 animate-talk hidden-talk"
-          />
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <button onclick="next1()" class="relative">
-          <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
-          <span
-            class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
+    <!-- <audio id="bgm" src="audio/journey.mp3" loop></audio> -->
+    <div id="game-container" class="relative overflow-hidden w-full h-screen">
+      <!-- halaman 1 -->
+      <div id="hal1" class="page active mx-5">
+        <div class="relative">
+          <img src="img/ani2.png" alt="talk1" class="z-0" />
+          <p
+            id="textHal1"
+            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
           >
-            NEXT
-          </span>
-        </button>
-      </div>
-    </div>
-    <!-- halaman 2 -->
-    <!-- anyway, what kinda noodle you wanna cook this time? -->
-    <div id="hal2" class="hidden mx-5">
-      <div class="relative">
-        <img src="img/ani1.png" alt="talk1" class="z-0" />
-        <p
-          id="textHal2"
-          class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
-        >
-          -
-        </p>
-        <div class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7">
-          <img
-            id="talkview2"
-            src="img/talk1.png"
-            alt="talkview"
-            class="w-8 animate-talk hidden-talk"
-          />
-        </div>
-      </div>
-      <div class="flex justify-end">
-        <button onclick="next2()" class="relative">
-          <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
-          <span
-            class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
+            -
+          </p>
+          <div
+            class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7"
           >
-            NEXT
-          </span>
-        </button>
-      </div>
-    </div>
-    <!-- halaman 3 -->
-    <div id="hal3" class="hidden w-full">
-      <div class="flex flex-col justify-center items-center">
-        <div class="flex items-center">
-          <img
-            id="noodleImg"
-            src="img/noodle1.png"
-            alt="noodle"
-            class="w-60 h-auto"
-          />
-        </div>
-
-        <div class="mx-8 flex items-center justify-center relative mb-3">
-          <div class="absolute inset-0 flex flex-col justify-center">
-            <p
-              id="title"
-              class="text-xl font-bold pixelify text-white text-center"
-            >
-              mie kuah biasa
-            </p>
-            <p id="detail" class="pixelify text-white text-center mx-5">-</p>
+            <img
+              id="talkview"
+              src="img/talk1.png"
+              alt="talkview"
+              class="w-8 animate-talk hidden-talk"
+            />
           </div>
-          <img src="img/detail.png" alt="detail" />
         </div>
-
-        <div class="flex justify-center w-full">
-          <button id="prevBtn">
-            <img
-              src="img/prev.png"
-              alt="prev"
-              class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
-            />
-          </button>
-          <button onclick="startTimer()" class="relative w-40 h-auto">
-            <img src="img/start.png" alt="start" />
+        <div class="flex justify-end">
+          <button onclick="next1()" class="relative">
+            <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
             <span
-              class="absolute inset-0 flex items-center justify-center text-white font-bold"
-              >START</span
+              class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
             >
-          </button>
-          <button id="nextBtn">
-            <img
-              src="img/next.png"
-              alt="next"
-              class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
-            />
+              NEXT
+            </span>
           </button>
         </div>
       </div>
-    </div>
-    <!-- halaman 4 -->
-    <div id="hal4" class="hidden mx-5">
-      <div class="flex flex-col justify-center items-center">
-        <img src="img/noodle1.png" alt="cooking" class="w-60 h-auto" />
-        <p class="pixelify text-center text-white">
-          mie kamu akan masak dalam :
-        </p>
-        <h1 class="jersey20 text-8xl text-white text-center">03:00</h1>
+      <!-- halaman 2 -->
+      <div id="hal2" class="page hidden mx-5">
+        <div class="relative">
+          <img src="img/ani1.png" alt="talk1" class="z-0" />
+          <p
+            id="textHal2"
+            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
+          >
+            -
+          </p>
+          <div
+            class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7"
+          >
+            <img
+              id="talkview2"
+              src="img/talk1.png"
+              alt="talkview"
+              class="w-8 animate-talk hidden-talk"
+            />
+          </div>
+        </div>
+        <div class="flex justify-end">
+          <button onclick="next2()" class="relative">
+            <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
+            <span
+              class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
+            >
+              NEXT
+            </span>
+          </button>
+        </div>
       </div>
-      <div class="flex">
-        <button id="resetBtn" class="relative w-40 h-auto">
-          <img src="img/start.png" alt="pause" />
-          <p
-            class="pixelify absolute inset-0 flex items-center justify-center z-10 text-white"
-          >
-            RESET
+      <!-- halaman 3 -->
+      <div id="hal3" class="page hidden w-full">
+        <div class="flex flex-col justify-center items-center">
+          <div class="flex items-center">
+            <img
+              id="noodleImg"
+              src="img/noodle1.png"
+              alt="noodle"
+              class="w-60 h-auto"
+            />
+          </div>
+
+          <div class="mx-8 flex items-center justify-center relative mb-3">
+            <div class="absolute inset-0 flex flex-col justify-center">
+              <p
+                id="title"
+                class="text-xl font-bold pixelify text-white text-center"
+              >
+                mie kuah biasa
+              </p>
+              <p id="detail" class="pixelify text-white text-center mx-6">-</p>
+            </div>
+            <img src="img/detail.png" alt="detail" />
+          </div>
+
+          <div class="flex justify-center w-full">
+            <button id="prevBtn">
+              <img
+                src="img/prev.png"
+                alt="prev"
+                class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+              />
+            </button>
+            <button onclick="startTimer()" class="relative w-40 h-auto">
+              <img src="img/start.png" alt="start" />
+              <span
+                class="absolute inset-0 flex items-center justify-center text-white font-bold"
+                >START</span
+              >
+            </button>
+            <button id="nextBtn">
+              <img
+                src="img/next.png"
+                alt="next"
+                class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
+              />
+            </button>
+          </div>
+        </div>
+      </div>
+      <!-- halaman 4 -->
+      <div id="hal4" class="page hidden mx-5">
+        <div class="flex flex-col justify-center items-center">
+          <img src="img/noodle1.png" alt="cooking" class="w-60 h-auto" />
+          <p class="pixelify text-center text-white">
+            mie kamu akan masak dalam :
           </p>
-        </button>
-        <button id="pauseBtn" class="relative w-40 h-auto">
-          <img src="img/start.png" alt="pause" />
-          <p
-            class="pixelify absolute z-10 inset-0 flex items-center justify-center text-white"
-          >
-            PAUSE
-          </p>
-        </button>
+          <h1 class="jersey20 text-8xl text-white text-center">00:00</h1>
+        </div>
+        <div class="flex items-center justify-center">
+          <button id="resetBtn" class="relative w-40 h-auto">
+            <img src="img/start.png" alt="pause" />
+            <p
+              class="pixelify absolute inset-0 flex items-center justify-center z-10 text-white"
+            >
+              RESET
+            </p>
+          </button>
+          <button id="pauseBtn" class="relative w-40 h-auto">
+            <img src="img/start.png" alt="pause" />
+            <p
+              class="pixelify absolute z-10 inset-0 flex items-center justify-center text-white"
+            >
+              PAUSE
+            </p>
+          </button>
+        </div>
       </div>
     </div>
   </body>
@@ -298,6 +405,7 @@
         typeText(chooseConversation[indexConversationHal1]);
       } else {
         hal2.classList.remove("hidden");
+        hal2.classList.add("active");
         hal1.classList.add("hidden");
 
         // mulai animasi typing di hal2
@@ -337,9 +445,25 @@
 
     // fungsi ganti hal2 ke hal3
     function next2() {
-      hal2.classList.add("hidden");
+      // Mulai animasi keluar ke kiri untuk hal2
+      hal2.classList.add("exit-left");
+      hal2.classList.remove("active");
+
+      // Tampilkan hal3 tapi posisinya masih di luar layar kanan
       hal3.classList.remove("hidden");
+
+      // Tambahkan delay sedikit agar transisi bisa terpicu
+      setTimeout(() => {
+        hal3.classList.add("active");
+      }, 50);
+
+      // Setelah animasi selesai, sembunyikan hal2
+      setTimeout(() => {
+        hal2.classList.add("hidden");
+        hal2.classList.remove("exit-left");
+      }, 600); // sesuai durasi transition
     }
+
     // script untuk pilih menu hal 3
     // variabel object informasi mie
     const noodles = [
@@ -351,7 +475,7 @@
       },
       {
         title: "mie setengah matang",
-        img: "img/noodle1.png",
+        img: "img/noodle2mck.png",
         detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
         time: 60,
       },
@@ -359,6 +483,12 @@
         title: "mie benyek",
         img: "img/noodle1.png",
         detail: "waktu masak 5 menit. cocok kalau kamu orangnya aneh.",
+        time: 300,
+      },
+      {
+        title: "mie goyeng",
+        img: "img/noodle3mck.png",
+        detail: "waktu masak 3 menit. cocok kalau kamu suka yang kering.",
         time: 300,
       },
     ];
@@ -377,17 +507,50 @@
       imgNoodle.src = mie.img;
       detailNoodle.textContent = mie.detail;
     }
+
+    function animateMie(direction) {
+      const oldImg = imgNoodle;
+
+      // tentukan animasi arah
+      const outClass =
+        direction === "next" ? "slide-out-left" : "slide-out-right";
+      const inClass = direction === "next" ? "slide-in-right" : "slide-in-left";
+
+      // animasi keluar
+      oldImg.classList.add(outClass);
+
+      // setelah animasi keluar selesai
+      setTimeout(() => {
+        // ubah data mie
+        const mie = noodles[mieIndex];
+        oldImg.src = mie.img;
+        titleNoodle.textContent = mie.title;
+        detailNoodle.textContent = mie.detail;
+
+        // hapus animasi keluar, tambahkan animasi masuk
+        oldImg.classList.remove(outClass);
+        oldImg.classList.add(inClass);
+
+        // setelah animasi masuk selesai, bersihkan class
+        setTimeout(() => {
+          oldImg.classList.remove(inClass);
+        }, 400);
+      }, 400);
+    }
+
     // event listener kalau tombol next ditekan
     next.addEventListener("click", () => {
       // tambah index untuk ganti mie
       mieIndex = (mieIndex + 1) % noodles.length;
-      gantiMie();
+      animateMie("next");
+      // gantiMie();
     });
     // event listener kalau tombol prev ditekan
     prev.addEventListener("click", () => {
       // kurangi index kemudian tambahkan dengan jumlah objek di satu array
       mieIndex = (mieIndex - 1 + noodles.length) % noodles.length;
-      gantiMie();
+      // gantiMie();
+      animateMie("prev");
     });
     // inisialisai
     gantiMie();
@@ -434,8 +597,20 @@
     // fungsi mulai timer
     function startTimer() {
       // sembunyikan hal 3 tampilkan hal 4
-      hal3.classList.add("hidden");
+      hal3.classList.add("exit-left");
+      hal3.classList.remove("active");
+
       hal4.classList.remove("hidden");
+
+      setTimeout(() => {
+        hal4.classList.add("active");
+      }, 50);
+
+      setTimeout(() => {
+        hal3.classList.add("hidden");
+        hal3.classList.remove("exit-left");
+      }, 600); // sesuai durasi transition
+
       // bersihkan interval variabel untuk timer kalau ada
       clearInterval(countDown);
       // ambil waktu dari object mie yang dipilih
