@@ -247,6 +247,9 @@
   .z-10 {
     z-index: 10;
   }
+  .z-99 {
+    z-index: 99;
+  }
   .container {
     width: 100%;
     @media (width >= 40rem) {
@@ -496,6 +499,10 @@
   }
   .text-center {
     text-align: center;
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
   }
   .text-8xl {
     font-size: var(--text-8xl);

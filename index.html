@@ -26,6 +26,11 @@
         font-size: 4vw;
       }
 
+      .pixelify-unresponsive {
+        font-family: "Pixelify Sans", sans-serif;
+        font-optical-sizing: auto;
+      }
+
       .jersey20 {
         font-family: "Jersey 20", sans-serif;
         font-weight: 400;
@@ -173,11 +178,11 @@
   >
     <button
       id="toggleBGM"
-      class="fixed top-5 left-10 bg-amber-600 text-white px-3 py-2 rounded-xl"
+      class="fixed top-5 left-10 bg-amber-600 text-white px-3 py-2 rounded-xl z-99"
     >
       🔇
+      <audio id="bgm" src="audio/journey.mp3" loop></audio>
     </button>
-    <audio id="bgm" src="audio/journey.mp3" loop></audio>
     <div id="game-container" class="relative overflow-hidden w-full h-screen">
       <!-- halaman 1 -->
       <div id="hal1" class="page active mx-5">
@@ -218,13 +223,17 @@
       <!-- halaman 2 -->
       <div id="hal2" class="page hidden mx-5">
         <div class="relative">
-          <img src="img/ani1.png" alt="talk1" class="z-0" />
-          <p
-            id="textHal2"
-            class="pixelify text-white text-center mx-10 z-10 absolute inset-0 flex items-center justify-center mt-50"
+          <img src="img/ani1.png" alt="talk1" class="z-0 w-full h-auto" />
+          <div
+            class="absolute inset-0 flex items-center justify-center pt-[55%]"
           >
-            -
-          </p>
+            <p
+              id="textHal2"
+              class="pixelify text-white text-center mx-10 z-10 leading-snug"
+            >
+              -
+            </p>
+          </div>
           <div
             class="absolute inset-0 z-10 flex items-end justify-end mb-7 mr-7"
           >
@@ -263,7 +272,7 @@
             <div class="absolute inset-0 flex flex-col justify-center">
               <p
                 id="title"
-                class="text-xl font-bold pixelify text-white text-center"
+                class="pixelify-unresponsive text-xl font-bold text-white text-center"
               >
                 mie kuah biasa
               </p>
