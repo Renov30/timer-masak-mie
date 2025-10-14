@@ -12,6 +12,8 @@ const textHal1 = document.getElementById("textHal1");
 const talkView = document.getElementById("talkview");
 const startPage = document.getElementById("startPage");
 
+let bgmPlaying = false;
+
 function next0() {
   startSound.currentTime = 0;
   startSound.play();
@@ -26,6 +28,18 @@ function next0() {
   setTimeout(() => {
     hal1.classList.add("active");
     typeText(chooseConversation[indexConversationHal1]);
+
+    if (!bgmPlaying) {
+      if (!bgm.src) {
+        bgm.src = "audio/journey.mp3"; // set sumber BGM
+        bgm.type = "audio/mpeg";
+      }
+      bgm.loop = true; // supaya lagu ngulang terus
+      bgm.volume = 0.5; // biar nggak terlalu kencang
+      bgm.play();
+      toggleBtn.textContent = "🔈";
+      bgmPlaying = true;
+    }
   }, 950);
 
   // Setelah animasi selesai, sembunyikan hal2
@@ -33,8 +47,6 @@ function next0() {
     startPage.classList.add("hidden");
     startPage.classList.remove("exit-left");
   }, 1600); // sesuai durasi transition
-
-  // mulai typing baru di hal1
 }
 
 // sembunyikan talkview
@@ -180,30 +192,6 @@ function next2() {
   setTimeout(() => {
     hal2.classList.add("hidden");
     hal2.classList.remove("exit-left");
-  }, 600); // sesuai durasi transition
-}
-
-const menuBtn = document.getElementById("menuBtn");
-menuBtn.addEventListener("click", gotoMenu);
-
-function gotoMenu() {
-  clickSound.currentTime = 0;
-  clickSound.play();
-
-  hal4.classList.add("exit-right");
-  hal4.classList.remove("active");
-
-  hal3.classList.remove("hidden");
-  hal3.style.transform = "translateX(-100%)"; // mulai dari luar kiri
-
-  setTimeout(() => {
-    hal3.classList.add("active");
-  }, 50);
-
-  setTimeout(() => {
-    hal4.classList.add("hidden");
-    hal4.classList.remove("exit-right");
-    hal3.style.transform = ""; // reset inline transform
   }, 600); // sesuai durasi transition
 }
 
@@ -377,7 +365,7 @@ function startTimer() {
 
 // event listener tombol pause dan reset
 pauseBtn.addEventListener("click", pauseTimer);
-resetBtn.addEventListener("click", resetTimer);
+resetBtn.addEventListener("click", gotoMenu);
 
 // fungsi pause timer
 function pauseTimer() {
@@ -391,36 +379,59 @@ function pauseTimer() {
 }
 
 // fungsi reset timer
-function resetTimer() {
+// function resetTimer() {
+//   pauseSound.currentTime = 0;
+//   pauseSound.play();
+
+//   clearInterval(countDown);
+//   timeLeft = noodles[mieIndex].time;
+//   updateTimerDisplay(timeLeft);
+//   isPaused = false;
+//   pauseBtn.querySelector("p").textContent = "PAUSE";
+//   countDown = setInterval(tick, 1000);
+// }
+
+// const menuBtn = document.getElementById("menuBtn");
+// menuBtn.addEventListener("click", gotoMenu);
+
+function gotoMenu() {
   pauseSound.currentTime = 0;
   pauseSound.play();
 
-  clearInterval(countDown);
-  timeLeft = noodles[mieIndex].time;
-  updateTimerDisplay(timeLeft);
-  isPaused = false;
-  pauseBtn.querySelector("p").textContent = "PAUSE";
-  countDown = setInterval(tick, 1000);
+  hal4.classList.add("exit-right");
+  hal4.classList.remove("active");
+
+  hal3.classList.remove("hidden");
+  hal3.style.transform = "translateX(-100%)"; // mulai dari luar kiri
+
+  setTimeout(() => {
+    hal3.classList.add("active");
+  }, 50);
+
+  setTimeout(() => {
+    hal4.classList.add("hidden");
+    hal4.classList.remove("exit-right");
+    hal3.style.transform = ""; // reset inline transform
+  }, 600); // sesuai durasi transition
 }
 
-const toggleBtn = document.getElementById("toggleBGM");
-const bgm = document.getElementById("bgm"); // tambahkan ini
-let bgmPlaying = false;
+// const toggleBtn = document.getElementById("toggleBGM");
+// const bgm = document.getElementById("bgm");
 
-toggleBtn.addEventListener("click", () => {
-  clickSound.currentTime = 0;
-  clickSound.play();
+// toggleBtn.addEventListener("click", () => {
+//   clickSound.currentTime = 0;
+//   clickSound.play();
 
-  if (!bgmPlaying) {
-    if (!bgm.src) {
-      bgm.src = "audio/journey.mp3"; // baru di-set ketika tombol ditekan
-      bgm.type = "audio/mpeg";
-    }
-    bgm.play();
-    toggleBtn.textContent = "🔈";
-  } else {
-    bgm.pause();
-    toggleBtn.textContent = "🔇";
-  }
-  bgmPlaying = !bgmPlaying;
-});
+//   if (!bgmPlaying) {
+//     if (!bgm.src) {
+//       bgm.src = "audio/journey.mp3"; // baru di-set ketika tombol ditekan
+//       bgm.type = "audio/mpeg";
+//     }
+//     bgm.play();
+//     toggleBtn.textContent = "🔈";
+//   } else {
+//     bgm.pause();
+//     toggleBtn.textContent = "🔇";
+//   }
+//   bgmPlaying = !bgmPlaying;
+// });
