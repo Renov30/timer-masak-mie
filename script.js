@@ -12,6 +12,9 @@ const textHal1 = document.getElementById("textHal1");
 const talkView = document.getElementById("talkview");
 const startPage = document.getElementById("startPage");
 
+const nextBtnHal1 = document.getElementById("nextBtnHal1");
+const nextBtnHal2 = document.getElementById("nextBtnHal2");
+
 let bgmPlaying = false;
 
 function next0() {
@@ -94,6 +97,17 @@ function typeText(text, callback) {
   textHal1.textContent = "";
   talkView.classList.add("hidden-talk"); // sembunyikan & matikan animasi
 
+  // 🔸 Kalau tombol sedang terlihat, kasih efek fade-out dulu
+  if (!nextBtnHal1.classList.contains("invisible")) {
+    nextBtnHal1.classList.remove("fade-in");
+    nextBtnHal1.classList.add("fade-out");
+
+    setTimeout(() => {
+      nextBtnHal1.classList.add("invisible");
+      nextBtnHal1.classList.remove("fade-out");
+    }, 400); // waktu fade-out (harus sama dgn CSS)
+  }
+
   let i = 0;
   const speed = 40;
 
@@ -107,6 +121,14 @@ function typeText(text, callback) {
       // tunggu sedikit lalu tampilkan segitiga
       setTimeout(() => {
         talkView.classList.remove("hidden-talk"); // tampilkan + aktifkan animasi lagi
+
+        nextBtnHal1.classList.remove("invisible");
+        nextBtnHal1.classList.add("fade-in"); // animasi fade-in untuk tombol NEXT
+
+        // hapus animasi class setelah selesai biar bisa dipakai lagi nanti
+        setTimeout(() => {
+          nextBtnHal1.classList.remove("fade-in");
+        }, 500);
       }, 200);
       if (callback) callback();
     }
@@ -151,6 +173,7 @@ const textHal2Content = "anyway, kamu mau masak mie apa hari ini?";
 // fungsi animasi ngetik untuk hal2
 function typeTextHal2(text, callback) {
   textHal2.textContent = "";
+  nextBtnHal2.classList.add("invisible");
   talkView2.classList.add("hidden-talk"); // sembunyikan segitiga
 
   let i = 0;
@@ -165,6 +188,14 @@ function typeTextHal2(text, callback) {
       clearInterval(typing);
       setTimeout(() => {
         talkView2.classList.remove("hidden-talk"); // tampilkan segitiga
+
+        nextBtnHal2.classList.remove("invisible");
+        nextBtnHal2.classList.add("fade-in"); // animasi fade-in untuk tombol NEXT
+
+        // hapus animasi class setelah selesai biar bisa dipakai lagi nanti
+        setTimeout(() => {
+          nextBtnHal2.classList.remove("fade-in");
+        }, 500);
       }, 200);
       if (callback) callback();
     }

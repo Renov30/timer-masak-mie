@@ -168,6 +168,37 @@
           transform: translateX(0);
         }
       }
+
+      .fade-in {
+        opacity: 0;
+        animation: fadeIn 0.5s ease forwards;
+      }
+
+      .fade-out {
+        animation: fadeOut 0.5s ease forwards;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      @keyframes fadeOut {
+        from {
+          opacity: 1;
+          transform: scale(1);
+        }
+        to {
+          opacity: 0;
+          transform: scale(0.95);
+        }
+      }
     </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
@@ -240,7 +271,7 @@
           </div>
         </div>
         <div class="flex justify-end">
-          <button onclick="next1()" class="relative">
+          <button id="nextBtnHal1" onclick="next1()" class="relative invisible">
             <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
             <span
               class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
@@ -276,7 +307,7 @@
           </div>
         </div>
         <div class="flex justify-end">
-          <button onclick="next2()" class="relative">
+          <button id="nextBtnHal2" onclick="next2()" class="relative invisible">
             <img src="img/btn2empt.png" alt="button-bg" class="w-45 h-auto" />
             <span
               class="pixelify absolute inset-0 flex items-center justify-center text-white font-bold"
