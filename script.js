@@ -224,6 +224,10 @@ function next2() {
   // Hide skip button if it's still there
   skipBtn.classList.add("hidden");
 
+  // Show back button
+  const backBtn = document.getElementById("backBtn");
+  backBtn.classList.remove("hidden");
+
   // Tampilkan hal3 tapi posisinya masih di luar layar kanan
   hal3.classList.remove("hidden");
 
@@ -525,6 +529,10 @@ function skipIntro() {
     hal3.classList.add("active");
     hal3.style.transform = "translateX(0)";
     hal3.style.opacity = "1";
+
+    // Show back button on menu
+    const backBtn = document.getElementById("backBtn");
+    backBtn.classList.remove("hidden");
   }, 50);
 
   // Nyalakan BGM jika belum nyala
@@ -539,4 +547,39 @@ function skipIntro() {
     // toggleBtn.textContent = "🔈"; // Toggle btn is commented out in HTML
     bgmPlaying = true;
   }
+}
+
+function goBack() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  // Hide back button
+  const backBtn = document.getElementById("backBtn");
+  backBtn.classList.add("hidden");
+
+  // Animate menu out to the right
+  hal3.classList.add("exit-right");
+  hal3.classList.remove("active");
+
+  // Show hal2 (last conversation page) with animation from left
+  hal2.classList.remove("hidden");
+  hal2.style.transform = "translateX(-100%)"; // Start from left
+
+  setTimeout(() => {
+    hal2.classList.add("active");
+    hal2.style.transform = "translateX(0)"; // Slide in
+
+    // Show skip button again
+    skipBtn.classList.remove("hidden");
+
+    // Reset conversation to last page
+    typeTextHal2(textHal2Content);
+  }, 50);
+
+  // Hide menu after animation
+  setTimeout(() => {
+    hal3.classList.add("hidden");
+    hal3.classList.remove("exit-right");
+    hal3.style.transform = ""; // Reset transform
+  }, 600);
 }
