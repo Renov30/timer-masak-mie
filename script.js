@@ -16,6 +16,8 @@ const nextBtnHal1 = document.getElementById("nextBtnHal1");
 const nextBtnHal2 = document.getElementById("nextBtnHal2");
 
 let bgmPlaying = false;
+let typingInterval; // Global variable to control typing animation
+const skipBtn = document.getElementById("skipBtn");
 
 function next0() {
   startSound.currentTime = 0;
@@ -24,6 +26,8 @@ function next0() {
   setTimeout(() => {
     startPage.classList.add("exit-left");
     startPage.classList.remove("active");
+    // Show skip button
+    skipBtn.classList.remove("hidden");
   }, 700);
 
   hal1.classList.remove("hidden");
@@ -111,13 +115,16 @@ function typeText(text, callback) {
   let i = 0;
   const speed = 40;
 
-  const typing = setInterval(() => {
+  // Clear any existing interval before starting new one
+  if (typingInterval) clearInterval(typingInterval);
+
+  typingInterval = setInterval(() => {
     if (i < text.length) {
       textHal1.textContent += text.charAt(i);
       playTypingSound();
       i++;
     } else {
-      clearInterval(typing);
+      clearInterval(typingInterval);
       // tunggu sedikit lalu tampilkan segitiga
       setTimeout(() => {
         talkView.classList.remove("hidden-talk"); // tampilkan + aktifkan animasi lagi
@@ -179,13 +186,16 @@ function typeTextHal2(text, callback) {
   let i = 0;
   const speed = 40;
 
-  const typing = setInterval(() => {
+  // Clear any existing interval before starting new one
+  if (typingInterval) clearInterval(typingInterval);
+
+  typingInterval = setInterval(() => {
     if (i < text.length) {
       textHal2.textContent += text.charAt(i);
       playTypingSound();
       i++;
     } else {
-      clearInterval(typing);
+      clearInterval(typingInterval);
       setTimeout(() => {
         talkView2.classList.remove("hidden-talk"); // tampilkan segitiga
 
@@ -210,6 +220,9 @@ function next2() {
   // Mulai animasi keluar ke kiri untuk hal2
   hal2.classList.add("exit-left");
   hal2.classList.remove("active");
+
+  // Hide skip button if it's still there
+  skipBtn.classList.add("hidden");
 
   // Tampilkan hal3 tapi posisinya masih di luar layar kanan
   hal3.classList.remove("hidden");
@@ -464,5 +477,47 @@ function gotoMenu() {
 //     bgm.pause();
 //     toggleBtn.textContent = "🔇";
 //   }
+//     toggleBtn.textContent = "🔇";
+//   }
 //   bgmPlaying = !bgmPlaying;
 // });
+
+function skipIntro() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  // Hentikan animasi ngetik
+  if (typingInterval) clearInterval(typingInterval);
+
+  // Sembunyikan halaman intro
+  startPage.classList.add("hidden");
+  startPage.classList.remove("active");
+
+  hal1.classList.add("hidden");
+  hal1.classList.remove("active");
+
+  hal2.classList.add("hidden");
+  hal2.classList.remove("active");
+
+  // Tampilkan menu (hal3)
+  hal3.classList.remove("hidden");
+  hal3.classList.add("active");
+  hal3.style.transform = "translateX(0)";
+  hal3.style.opacity = "1";
+
+  // Sembunyikan tombol skip
+  skipBtn.classList.add("hidden");
+
+  // Nyalakan BGM jika belum nyala
+  if (!bgmPlaying) {
+    if (!bgm.src) {
+      bgm.src = "audio/journey.mp3";
+      bgm.type = "audio/mpeg";
+    }
+    bgm.loop = true;
+    bgm.volume = 0.5;
+    bgm.play();
+    // toggleBtn.textContent = "🔈"; // Toggle btn is commented out in HTML
+    bgmPlaying = true;
+  }
+}
