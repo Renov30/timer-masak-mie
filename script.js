@@ -489,24 +489,43 @@ function skipIntro() {
   // Hentikan animasi ngetik
   if (typingInterval) clearInterval(typingInterval);
 
-  // Sembunyikan halaman intro
-  startPage.classList.add("hidden");
-  startPage.classList.remove("active");
-
-  hal1.classList.add("hidden");
-  hal1.classList.remove("active");
-
-  hal2.classList.add("hidden");
-  hal2.classList.remove("active");
-
-  // Tampilkan menu (hal3)
-  hal3.classList.remove("hidden");
-  hal3.classList.add("active");
-  hal3.style.transform = "translateX(0)";
-  hal3.style.opacity = "1";
-
   // Sembunyikan tombol skip
   skipBtn.classList.add("hidden");
+
+  // Cari halaman yang sedang aktif untuk dianimasikan keluar
+  let activePage;
+  if (startPage.classList.contains("active")) activePage = startPage;
+  else if (hal1.classList.contains("active")) activePage = hal1;
+  else if (hal2.classList.contains("active")) activePage = hal2;
+
+  if (activePage) {
+    activePage.classList.add("exit-left");
+    activePage.classList.remove("active");
+
+    setTimeout(() => {
+      activePage.classList.add("hidden");
+      activePage.classList.remove("exit-left");
+
+      // Pastikan halaman lain juga tersembunyi (cleanup)
+      startPage.classList.add("hidden");
+      hal1.classList.add("hidden");
+      hal2.classList.add("hidden");
+    }, 600);
+  } else {
+    // Fallback jika tidak ada yang active
+    startPage.classList.add("hidden");
+    hal1.classList.add("hidden");
+    hal2.classList.add("hidden");
+  }
+
+  // Tampilkan menu (hal3) dengan animasi masuk
+  hal3.classList.remove("hidden");
+
+  setTimeout(() => {
+    hal3.classList.add("active");
+    hal3.style.transform = "translateX(0)";
+    hal3.style.opacity = "1";
+  }, 50);
 
   // Nyalakan BGM jika belum nyala
   if (!bgmPlaying) {
