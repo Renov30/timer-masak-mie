@@ -215,14 +215,6 @@
     </button> -->
     <audio id="bgm" loop></audio>
 
-    <button
-      id="skipBtn"
-      onclick="skipIntro()"
-      class="hidden fixed top-5 right-5 z-50 bg-white/20 hover:bg-white/40 backdrop-blur-sm text-white px-4 py-2 rounded-xl pixelify border border-white/30 transition-all duration-300"
-    >
-      SKIP >>
-    </button>
-
     <div id="game-container" class="relative overflow-hidden w-full h-screen">
       <!-- halaman start -->
       <div id="startPage" class="page active mx-5">
@@ -410,6 +402,15 @@
         </div>
       </div>
     </div>
+
+    <button
+      id="skipBtn"
+      onclick="skipIntro()"
+      style="z-index: 9999; pointer-events: auto"
+      class="hidden fixed top-5 right-5 bg-white/20 hover:bg-white/50 hover:scale-105 backdrop-blur-sm text-white px-4 py-2 rounded-xl pixelify border border-white/30 transition-all duration-300 cursor-pointer shadow-lg"
+    >
+      SKIP >>
+    </button>
   </body>
   <!-- javascript -->
   <script src="script.js"></script>
