@@ -26,8 +26,10 @@ function next0() {
   setTimeout(() => {
     startPage.classList.add("exit-left");
     startPage.classList.remove("active");
-    // Show skip button
+    // Show skip button with animation
     skipBtn.classList.remove("hidden");
+    skipBtn.classList.add("fade-in");
+    setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
   }, 700);
 
   hal1.classList.remove("hidden");
@@ -221,12 +223,18 @@ function next2() {
   hal2.classList.add("exit-left");
   hal2.classList.remove("active");
 
-  // Hide skip button if it's still there
-  skipBtn.classList.add("hidden");
+  // Hide skip button with animation
+  skipBtn.classList.add("fade-out");
+  setTimeout(() => {
+    skipBtn.classList.add("hidden");
+    skipBtn.classList.remove("fade-out");
+  }, 500);
 
-  // Show back button
+  // Show back button with animation
   const backBtn = document.getElementById("backBtn");
   backBtn.classList.remove("hidden");
+  backBtn.classList.add("fade-in");
+  setTimeout(() => backBtn.classList.remove("fade-in"), 500);
 
   // Tampilkan hal3 tapi posisinya masih di luar layar kanan
   hal3.classList.remove("hidden");
@@ -388,6 +396,14 @@ function startTimer() {
   hal3.classList.add("exit-left");
   hal3.classList.remove("active");
 
+  // Hide back button when entering timer with animation
+  const backBtn = document.getElementById("backBtn");
+  backBtn.classList.add("fade-out");
+  setTimeout(() => {
+    backBtn.classList.add("hidden");
+    backBtn.classList.remove("fade-out");
+  }, 500);
+
   hal4.classList.remove("hidden");
 
   setTimeout(() => {
@@ -454,6 +470,12 @@ function gotoMenu() {
 
   setTimeout(() => {
     hal3.classList.add("active");
+
+    // Show back button when returning to menu with animation
+    const backBtn = document.getElementById("backBtn");
+    backBtn.classList.remove("hidden");
+    backBtn.classList.add("fade-in");
+    setTimeout(() => backBtn.classList.remove("fade-in"), 500);
   }, 50);
 
   setTimeout(() => {
@@ -493,8 +515,12 @@ function skipIntro() {
   // Hentikan animasi ngetik
   if (typingInterval) clearInterval(typingInterval);
 
-  // Sembunyikan tombol skip
-  skipBtn.classList.add("hidden");
+  // Sembunyikan tombol skip dengan animasi
+  skipBtn.classList.add("fade-out");
+  setTimeout(() => {
+    skipBtn.classList.add("hidden");
+    skipBtn.classList.remove("fade-out");
+  }, 500);
 
   // Cari halaman yang sedang aktif untuk dianimasikan keluar
   let activePage;
@@ -530,9 +556,11 @@ function skipIntro() {
     hal3.style.transform = "translateX(0)";
     hal3.style.opacity = "1";
 
-    // Show back button on menu
+    // Show back button on menu with animation
     const backBtn = document.getElementById("backBtn");
     backBtn.classList.remove("hidden");
+    backBtn.classList.add("fade-in");
+    setTimeout(() => backBtn.classList.remove("fade-in"), 500);
   }, 50);
 
   // Nyalakan BGM jika belum nyala
@@ -553,9 +581,13 @@ function goBack() {
   clickSound.currentTime = 0;
   clickSound.play();
 
-  // Hide back button
+  // Hide back button with animation
   const backBtn = document.getElementById("backBtn");
-  backBtn.classList.add("hidden");
+  backBtn.classList.add("fade-out");
+  setTimeout(() => {
+    backBtn.classList.add("hidden");
+    backBtn.classList.remove("fade-out");
+  }, 500);
 
   // Animate menu out to the right
   hal3.classList.add("exit-right");
@@ -569,8 +601,10 @@ function goBack() {
     hal2.classList.add("active");
     hal2.style.transform = "translateX(0)"; // Slide in
 
-    // Show skip button again
+    // Show skip button again with animation
     skipBtn.classList.remove("hidden");
+    skipBtn.classList.add("fade-in");
+    setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
 
     // Reset conversation to last page
     typeTextHal2(textHal2Content);
