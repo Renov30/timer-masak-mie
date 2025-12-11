@@ -18,6 +18,7 @@ const nextBtnHal2 = document.getElementById("nextBtnHal2");
 let bgmPlaying = false;
 let typingInterval; // Global variable to control typing animation
 const skipBtn = document.getElementById("skipBtn");
+const bgm = document.getElementById("bgm"); // Fix: bgm variable harus didefinisikan
 
 function next0() {
   startSound.currentTime = 0;
@@ -45,8 +46,11 @@ function next0() {
       }
       bgm.loop = true; // supaya lagu ngulang terus
       bgm.volume = 0.5; // biar nggak terlalu kencang
-      bgm.play();
-      toggleBtn.textContent = "🔈";
+      bgm.play().catch(err => {
+        // Fix: Handle autoplay policy errors
+        console.warn("BGM autoplay blocked:", err);
+      });
+      // toggleBtn.textContent = "🔈"; // Fix: toggleBtn tidak digunakan (commented out)
       bgmPlaying = true;
     }
   }, 950);
@@ -117,8 +121,11 @@ function typeText(text, callback) {
   let i = 0;
   const speed = 40;
 
-  // Clear any existing interval before starting new one
-  if (typingInterval) clearInterval(typingInterval);
+  // Fix: Clear any existing interval before starting new one
+  if (typingInterval) {
+    clearInterval(typingInterval);
+    typingInterval = null;
+  }
 
   typingInterval = setInterval(() => {
     if (i < text.length) {
@@ -127,6 +134,7 @@ function typeText(text, callback) {
       i++;
     } else {
       clearInterval(typingInterval);
+      typingInterval = null; // Fix: Reset interval variable
       // tunggu sedikit lalu tampilkan segitiga
       setTimeout(() => {
         talkView.classList.remove("hidden-talk"); // tampilkan + aktifkan animasi lagi
@@ -151,9 +159,11 @@ function next1() {
   clickSound.currentTime = 0;
   clickSound.play();
 
-  // pastikan animasi ngetik selesai sebelum lanjut
-  if (textHal1.textContent !== chooseConversation[indexConversationHal1])
+  // Fix: Pastikan animasi ngetik selesai sebelum lanjut
+  // Juga cek apakah typingInterval masih berjalan
+  if (typingInterval || textHal1.textContent !== chooseConversation[indexConversationHal1]) {
     return;
+  }
 
   // kalau urutannya lebih kecil dari panjang conversation yang dipilih contoh 3 maka dia dikurang 1 karena mulainya dari 0
   if (indexConversationHal1 < chooseConversation.length - 1) {
@@ -188,8 +198,11 @@ function typeTextHal2(text, callback) {
   let i = 0;
   const speed = 40;
 
-  // Clear any existing interval before starting new one
-  if (typingInterval) clearInterval(typingInterval);
+  // Fix: Clear any existing interval before starting new one
+  if (typingInterval) {
+    clearInterval(typingInterval);
+    typingInterval = null;
+  }
 
   typingInterval = setInterval(() => {
     if (i < text.length) {
@@ -198,6 +211,7 @@ function typeTextHal2(text, callback) {
       i++;
     } else {
       clearInterval(typingInterval);
+      typingInterval = null; // Fix: Reset interval variable
       setTimeout(() => {
         talkView2.classList.remove("hidden-talk"); // tampilkan segitiga
 
@@ -379,11 +393,14 @@ function tick() {
   // jika timeleft kurang dari 0 tampilkan selesai
   if (timeLeft <= 0) {
     clearInterval(countDown);
+    countDown = null; // Fix: set ke null setelah clear
     timerDisplay.textContent = "SELESAI!";
 
     finishSound.currentTime = 0;
     finishSound.loop = true;
     finishSound.play();
+    // Fix: Set flag untuk tracking bahwa timer selesai
+    isPaused = false; // Reset pause state
   }
 }
 
@@ -415,8 +432,17 @@ function startTimer() {
     hal3.classList.remove("exit-left");
   }, 600); // sesuai durasi transition
 
-  // bersihkan interval variabel untuk timer kalau ada
-  clearInterval(countDown);
+  // Fix: Bersihkan interval variabel untuk timer kalau ada
+  if (countDown) {
+    clearInterval(countDown);
+    countDown = null;
+  }
+
+  // Fix: Stop finish sound jika sedang bermain
+  finishSound.pause();
+  finishSound.currentTime = 0;
+  finishSound.loop = false;
+
   // ambil waktu dari object mie yang dipilih
   timeLeft = noodles[mieIndex].time;
   // tampilkan waktu di awal (kirim timeleft ke updatetimerdisplay)
@@ -461,6 +487,21 @@ function pauseTimer() {
 function gotoMenu() {
   pauseSound.currentTime = 0;
   pauseSound.play();
+
+  // Fix: Clear timer interval untuk mencegah memory leak
+  if (countDown) {
+    clearInterval(countDown);
+    countDown = null;
+  }
+
+  // Fix: Stop finish sound jika sedang bermain
+  finishSound.pause();
+  finishSound.currentTime = 0;
+  finishSound.loop = false;
+
+  // Fix: Reset timer state
+  isPaused = false;
+  timeLeft = 0;
 
   hal4.classList.add("exit-right");
   hal4.classList.remove("active");
@@ -512,8 +553,16 @@ function skipIntro() {
   clickSound.currentTime = 0;
   clickSound.play();
 
-  // Hentikan animasi ngetik
-  if (typingInterval) clearInterval(typingInterval);
+  // Fix: Hentikan animasi ngetik dan reset interval
+  if (typingInterval) {
+    clearInterval(typingInterval);
+    typingInterval = null;
+  }
+
+  // Fix: Stop finish sound jika sedang bermain
+  finishSound.pause();
+  finishSound.currentTime = 0;
+  finishSound.loop = false;
 
   // Sembunyikan tombol skip dengan animasi
   skipBtn.classList.add("fade-out");
@@ -571,7 +620,10 @@ function skipIntro() {
     }
     bgm.loop = true;
     bgm.volume = 0.5;
-    bgm.play();
+    bgm.play().catch(err => {
+      // Fix: Handle autoplay policy errors
+      console.warn("BGM autoplay blocked:", err);
+    });
     // toggleBtn.textContent = "🔈"; // Toggle btn is commented out in HTML
     bgmPlaying = true;
   }
@@ -580,6 +632,21 @@ function skipIntro() {
 function goBack() {
   clickSound.currentTime = 0;
   clickSound.play();
+
+  // Fix: Clear timer jika sedang berjalan
+  if (countDown) {
+    clearInterval(countDown);
+    countDown = null;
+  }
+
+  // Fix: Stop finish sound jika sedang bermain
+  finishSound.pause();
+  finishSound.currentTime = 0;
+  finishSound.loop = false;
+
+  // Fix: Reset timer state
+  isPaused = false;
+  timeLeft = 0;
 
   // Hide back button with animation
   const backBtn = document.getElementById("backBtn");
