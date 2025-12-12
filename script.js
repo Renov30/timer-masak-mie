@@ -741,37 +741,49 @@ function goBack() {
     // Pastikan hal2 juga di-reset dulu sebelum animasi masuk
     hal2.style.transform = "";
     hal2.style.opacity = "";
+    hal2.classList.remove(
+      "active",
+      "exit-left",
+      "exit-right",
+      "slide-in-left",
+      "slide-in-right",
+      "slide-from-left"
+    ); // Reset semua class
 
     // Show hal2 (last conversation page) with animation from left
     hal2.classList.remove("hidden");
 
-    // Set initial state untuk animasi masuk dengan delay kecil
-    setTimeout(() => {
-      hal2.style.transform = "translateX(-100%)"; // Start from left
-      hal2.style.opacity = "0";
+    // Set initial state dengan inline style (dari kiri)
+    hal2.style.transform = "translateX(-100%)";
+    hal2.style.opacity = "0";
+    hal2.style.transition = "transform 0.6s ease, opacity 0.6s ease"; // Pastikan transition aktif
 
-      // Force reflow untuk memastikan initial state diterapkan
+    // Gunakan requestAnimationFrame untuk memastikan initial state diterapkan
+    requestAnimationFrame(() => {
+      // Force reflow
       void hal2.offsetHeight;
 
+      // Ubah inline style ke posisi tengah (dari kiri ke tengah)
+      hal2.style.transform = "translateX(0)";
+      hal2.style.opacity = "1";
+
+      // Tambahkan class active untuk state final
+      hal2.classList.add("active");
+
+      // Setelah transisi selesai, hapus inline style dan biarkan CSS class yang mengatur
       setTimeout(() => {
-        hal2.classList.add("active");
-        hal2.style.transform = "translateX(0)"; // Slide in
-        hal2.style.opacity = "1";
+        hal2.style.removeProperty("transform");
+        hal2.style.removeProperty("opacity");
+        hal2.style.removeProperty("transition");
+      }, 600); // Sesuai durasi transition
 
-        // Show skip button again with animation
-        skipBtn.classList.remove("hidden");
-        skipBtn.classList.add("fade-in");
-        setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
+      // Show skip button again with animation
+      skipBtn.classList.remove("hidden");
+      skipBtn.classList.add("fade-in");
+      setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
 
-        // Reset conversation to last page
-        typeTextHal2(textHal2Content);
-
-        // Cleanup inline styles setelah animasi selesai (biarkan CSS class yang mengatur)
-        setTimeout(() => {
-          hal2.style.transform = "";
-          hal2.style.opacity = "";
-        }, 600);
-      }, 50);
-    }, 50);
+      // Reset conversation to last page
+      typeTextHal2(textHal2Content);
+    });
   }, 600); // Tunggu animasi exit hal3 selesai
 }
