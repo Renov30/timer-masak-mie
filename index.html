@@ -199,6 +199,173 @@
           transform: scale(0.95);
         }
       }
+
+      /* Responsive styles untuk tablet dan desktop */
+      /* Tablet: 768px ke atas */
+      @media (min-width: 768px) {
+        /* Container utama dengan max-width agar tidak terlalu lebar */
+        #game-container {
+          max-width: 600px;
+          margin: 0 auto;
+          padding: 1rem;
+        }
+
+        /* Page spacing untuk tablet */
+        .page {
+          padding: 1rem 0;
+        }
+
+        /* Font size untuk pixelify agar tidak terlalu besar di tablet */
+        .pixelify {
+          font-size: 2.5vw;
+        }
+
+        /* Start page adjustments */
+        #startPage img {
+          max-width: 400px;
+        }
+
+        /* Button sizes untuk tablet */
+        img.w-45 {
+          width: 180px !important;
+        }
+
+        button.w-40 {
+          width: 160px !important;
+        }
+
+        /* Halaman detail (hal3) adjustments */
+        #hal3 img.w-60 {
+          width: 280px;
+        }
+
+        /* Timer page adjustments */
+        #hal4 img.w-60 {
+          width: 280px;
+        }
+
+        #hal4 h1 {
+          font-size: 6rem;
+        }
+
+        /* Text pada halaman talk untuk tablet */
+        #textHal1,
+        #textHal2 {
+          font-size: 1.25rem;
+        }
+      }
+
+      /* Desktop/Laptop: 1024px ke atas */
+      @media (min-width: 1024px) {
+        /* Container utama dengan max-width yang lebih besar */
+        #game-container {
+          max-width: 700px;
+          padding: 1.5rem;
+        }
+
+        /* Page spacing untuk desktop */
+        .page {
+          padding: 1.5rem 0;
+        }
+
+        /* Font size untuk desktop */
+        .pixelify {
+          font-size: 2vw;
+        }
+
+        /* Start page */
+        #startPage img {
+          max-width: 450px;
+        }
+
+        #startPage .pixelify-unresponsive {
+          font-size: 1.5rem;
+        }
+
+        /* Button sizes untuk desktop */
+        img.w-45 {
+          width: 200px !important;
+        }
+
+        button.w-40 {
+          width: 180px !important;
+        }
+
+        /* Halaman detail (hal3) */
+        #hal3 img.w-60 {
+          width: 320px;
+        }
+
+        #hal3 #title {
+          font-size: 1.75rem;
+        }
+
+        /* Timer page */
+        #hal4 img.w-60 {
+          width: 320px;
+        }
+
+        #hal4 h1 {
+          font-size: 7rem;
+        }
+
+        #hal4 .pixelify {
+          font-size: 1.5rem;
+        }
+
+        /* Text pada halaman talk */
+        #textHal1,
+        #textHal2 {
+          font-size: 1.5rem;
+          max-width: 80%;
+        }
+
+        /* Skip dan Back button positioning */
+        #skipBtn,
+        #backBtn {
+          font-size: 1rem;
+          padding: 0.75rem 1.5rem;
+        }
+
+        /* Detail text pada hal3 */
+        #hal3 #detail {
+          font-size: 1.25rem;
+        }
+      }
+
+      /* Large Desktop: 1440px ke atas */
+      @media (min-width: 1440px) {
+        #game-container {
+          max-width: 800px;
+          padding: 2rem;
+        }
+
+        .page {
+          padding: 2rem 0;
+        }
+
+        .pixelify {
+          font-size: 1.8vw;
+        }
+
+        #startPage img {
+          max-width: 500px;
+        }
+
+        #hal3 img.w-60,
+        #hal4 img.w-60 {
+          width: 360px;
+        }
+
+        #hal4 h1 {
+          font-size: 8rem;
+        }
+
+        #textHal1,
+        #textHal2 {
+          font-size: 1.75rem;
+        }
+      }
     </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
