@@ -272,28 +272,28 @@ function next2() {
 // variabel object informasi mie
 const noodles = [
   {
-    title: "mie kuah biasa",
-    img: "img/noodle1.png",
+    title: "mie rebus biasa",
+    img: "img/gambar mie no bg/mie1.png",
     detail: "waktu masak 3 menit. cocok buat kamu yang suka mie kuah.",
     time: 180,
   },
   {
-    title: "mie setengah matang",
-    img: "img/noodle2mck.png",
-    detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
-    time: 60,
-  },
-  {
-    title: "mie benyek",
-    img: "img/noodle1.png",
-    detail: "waktu masak 5 menit. cocok kalau kamu orangnya aneh.",
-    time: 300,
-  },
-  {
-    title: "mie goyeng",
-    img: "img/noodle3mck.png",
+    title: "mie goreng biasa",
+    img: "img/gambar mie no bg/mie2.png",
     detail: "waktu masak 3 menit. cocok kalau kamu suka yang kering.",
     time: 180,
+  },
+  {
+    title: "mie mentah",
+    img: "img/gambar mie no bg/mie3.png",
+    detail: "waktu masak 0 menit. untuk yang suka mie mentah.",
+    time: 0,
+  },
+  {
+    title: "mie setengah matang",
+    img: "img/gambar mie no bg/mie4.png",
+    detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
+    time: 60,
   },
 ];
 // variabel mie ke berapa
