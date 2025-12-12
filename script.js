@@ -412,6 +412,21 @@ function startTimer() {
   selectSound.currentTime = 0;
   selectSound.play();
 
+  // Reset inline styles dari skipIntro() sebelum animasi exit
+  // Ini penting untuk mencegah konflik dengan animasi exit
+  hal3.style.transform = "";
+  hal3.style.opacity = "";
+
+  // Pastikan hal3 tidak dalam state yang konflik
+  // Hapus semua class animasi yang mungkin masih aktif
+  hal3.classList.remove(
+    "slide-in-right",
+    "slide-in-left",
+    "slide-out-right",
+    "slide-out-left",
+    "slide-from-left"
+  );
+
   // sembunyikan hal 3 tampilkan hal 4
   hal3.classList.add("exit-left");
   hal3.classList.remove("active");
@@ -424,6 +439,11 @@ function startTimer() {
     backBtn.classList.remove("fade-out");
   }, 500);
 
+  // Reset hal4 sebelum animasi masuk
+  hal4.style.transform = "";
+  hal4.style.opacity = "";
+  hal4.classList.remove("active", "exit-right", "exit-left");
+
   hal4.classList.remove("hidden");
 
   setTimeout(() => {
@@ -433,6 +453,8 @@ function startTimer() {
   setTimeout(() => {
     hal3.classList.add("hidden");
     hal3.classList.remove("exit-left");
+    hal3.style.transform = ""; // Reset transform
+    hal3.style.opacity = ""; // Reset opacity
   }, 600); // sesuai durasi transition
 
   // Fix: Bersihkan interval variabel untuk timer kalau ada
