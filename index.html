@@ -210,11 +210,13 @@
           padding: 1rem;
           transform: scale(0.6);
           transform-origin: center center;
+          overflow: visible;
         }
 
         /* Page spacing untuk tablet */
         .page {
           padding: 1rem 0;
+          overflow: visible;
         }
 
         /* Font size untuk pixelify agar tidak terlalu besar di tablet */
@@ -255,6 +257,13 @@
         #textHal2 {
           font-size: 1.25rem;
         }
+
+        /* Pastikan tombol next terlihat */
+        #nextBtnHal1,
+        #nextBtnHal2 {
+          z-index: 20;
+          position: relative;
+        }
       }
 
       /* Desktop/Laptop: 1024px ke atas */
@@ -265,11 +274,13 @@
           padding: 1.5rem;
           transform: scale(0.6);
           transform-origin: center center;
+          overflow: visible;
         }
 
         /* Page spacing untuk desktop */
         .page {
           padding: 1.5rem 0;
+          overflow: visible;
         }
 
         /* Font size untuk desktop */
@@ -335,6 +346,13 @@
         #hal3 #detail {
           font-size: 1.25rem;
         }
+
+        /* Pastikan tombol next terlihat */
+        #nextBtnHal1,
+        #nextBtnHal2 {
+          z-index: 20;
+          position: relative;
+        }
       }
 
       /* Large Desktop: 1440px ke atas */
@@ -344,10 +362,12 @@
           padding: 2rem;
           transform: scale(0.6);
           transform-origin: center center;
+          overflow: visible;
         }
 
         .page {
           padding: 2rem 0;
+          overflow: visible;
         }
 
         .pixelify {
