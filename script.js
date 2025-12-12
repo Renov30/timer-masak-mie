@@ -46,7 +46,7 @@ function next0() {
       }
       bgm.loop = true; // supaya lagu ngulang terus
       bgm.volume = 0.5; // biar nggak terlalu kencang
-      bgm.play().catch(err => {
+      bgm.play().catch((err) => {
         // Fix: Handle autoplay policy errors
         console.warn("BGM autoplay blocked:", err);
       });
@@ -161,7 +161,10 @@ function next1() {
 
   // Fix: Pastikan animasi ngetik selesai sebelum lanjut
   // Juga cek apakah typingInterval masih berjalan
-  if (typingInterval || textHal1.textContent !== chooseConversation[indexConversationHal1]) {
+  if (
+    typingInterval ||
+    textHal1.textContent !== chooseConversation[indexConversationHal1]
+  ) {
     return;
   }
 
@@ -578,39 +581,93 @@ function skipIntro() {
   else if (hal2.classList.contains("active")) activePage = hal2;
 
   if (activePage) {
+    // Animate out halaman yang aktif
     activePage.classList.add("exit-left");
     activePage.classList.remove("active");
 
+    // Pastikan halaman lain juga tersembunyi (cleanup)
+    if (activePage !== startPage) startPage.classList.add("hidden");
+    if (activePage !== hal1) hal1.classList.add("hidden");
+    if (activePage !== hal2) hal2.classList.add("hidden");
+
+    // Reset inline styles dari halaman yang aktif sebelum exit
+    activePage.style.transform = "";
+    activePage.style.opacity = "";
+
+    // Tunggu animasi fade out selesai sebelum menampilkan hal3
     setTimeout(() => {
       activePage.classList.add("hidden");
       activePage.classList.remove("exit-left");
+      activePage.style.transform = ""; // Reset transform
+      activePage.style.opacity = ""; // Reset opacity
 
-      // Pastikan halaman lain juga tersembunyi (cleanup)
-      startPage.classList.add("hidden");
-      hal1.classList.add("hidden");
-      hal2.classList.add("hidden");
-    }, 600);
+      // Reset hal3 sebelum animasi masuk
+      hal3.style.transform = "";
+      hal3.style.opacity = "";
+
+      // Tampilkan menu (hal3) dengan animasi masuk setelah fade out selesai
+      hal3.classList.remove("hidden");
+
+      // Set initial state untuk animasi masuk
+      setTimeout(() => {
+        hal3.style.transform = "translateX(100%)"; // Mulai dari kanan
+        hal3.style.opacity = "0";
+
+        // Force reflow untuk memastikan initial state diterapkan
+        void hal3.offsetHeight;
+
+        setTimeout(() => {
+          hal3.classList.add("active");
+          hal3.style.transform = "translateX(0)";
+          hal3.style.opacity = "1";
+
+          // Show back button on menu with animation
+          const backBtn = document.getElementById("backBtn");
+          backBtn.classList.remove("hidden");
+          backBtn.classList.add("fade-in");
+          setTimeout(() => backBtn.classList.remove("fade-in"), 500);
+        }, 50);
+      }, 50);
+    }, 600); // Tunggu animasi exit selesai
   } else {
     // Fallback jika tidak ada yang active
     startPage.classList.add("hidden");
     hal1.classList.add("hidden");
     hal2.classList.add("hidden");
+
+    // Reset semua inline styles
+    startPage.style.transform = "";
+    startPage.style.opacity = "";
+    hal1.style.transform = "";
+    hal1.style.opacity = "";
+    hal2.style.transform = "";
+    hal2.style.opacity = "";
+    hal3.style.transform = "";
+    hal3.style.opacity = "";
+
+    // Tampilkan menu langsung
+    hal3.classList.remove("hidden");
+
+    setTimeout(() => {
+      hal3.style.transform = "translateX(100%)";
+      hal3.style.opacity = "0";
+
+      // Force reflow
+      void hal3.offsetHeight;
+
+      setTimeout(() => {
+        hal3.classList.add("active");
+        hal3.style.transform = "translateX(0)";
+        hal3.style.opacity = "1";
+
+        // Show back button on menu with animation
+        const backBtn = document.getElementById("backBtn");
+        backBtn.classList.remove("hidden");
+        backBtn.classList.add("fade-in");
+        setTimeout(() => backBtn.classList.remove("fade-in"), 500);
+      }, 50);
+    }, 50);
   }
-
-  // Tampilkan menu (hal3) dengan animasi masuk
-  hal3.classList.remove("hidden");
-
-  setTimeout(() => {
-    hal3.classList.add("active");
-    hal3.style.transform = "translateX(0)";
-    hal3.style.opacity = "1";
-
-    // Show back button on menu with animation
-    const backBtn = document.getElementById("backBtn");
-    backBtn.classList.remove("hidden");
-    backBtn.classList.add("fade-in");
-    setTimeout(() => backBtn.classList.remove("fade-in"), 500);
-  }, 50);
 
   // Nyalakan BGM jika belum nyala
   if (!bgmPlaying) {
@@ -620,7 +677,7 @@ function skipIntro() {
     }
     bgm.loop = true;
     bgm.volume = 0.5;
-    bgm.play().catch(err => {
+    bgm.play().catch((err) => {
       // Fix: Handle autoplay policy errors
       console.warn("BGM autoplay blocked:", err);
     });
@@ -656,31 +713,65 @@ function goBack() {
     backBtn.classList.remove("fade-out");
   }, 500);
 
+  // Reset inline styles dari skipIntro() sebelum animasi exit
+  // Ini penting untuk mencegah konflik dengan animasi exit
+  hal3.style.transform = "";
+  hal3.style.opacity = "";
+
+  // Pastikan hal3 tidak dalam state yang konflik
+  // Hapus semua class animasi yang mungkin masih aktif
+  hal3.classList.remove(
+    "slide-in-right",
+    "slide-in-left",
+    "slide-out-right",
+    "slide-out-left"
+  );
+
   // Animate menu out to the right
   hal3.classList.add("exit-right");
   hal3.classList.remove("active");
 
-  // Show hal2 (last conversation page) with animation from left
-  hal2.classList.remove("hidden");
-  hal2.style.transform = "translateX(-100%)"; // Start from left
-
-  setTimeout(() => {
-    hal2.classList.add("active");
-    hal2.style.transform = "translateX(0)"; // Slide in
-
-    // Show skip button again with animation
-    skipBtn.classList.remove("hidden");
-    skipBtn.classList.add("fade-in");
-    setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
-
-    // Reset conversation to last page
-    typeTextHal2(textHal2Content);
-  }, 50);
-
-  // Hide menu after animation
+  // Tunggu animasi fade out hal3 selesai sebelum menampilkan hal2
   setTimeout(() => {
     hal3.classList.add("hidden");
     hal3.classList.remove("exit-right");
     hal3.style.transform = ""; // Reset transform
-  }, 600);
+    hal3.style.opacity = ""; // Reset opacity
+
+    // Pastikan hal2 juga di-reset dulu sebelum animasi masuk
+    hal2.style.transform = "";
+    hal2.style.opacity = "";
+
+    // Show hal2 (last conversation page) with animation from left
+    hal2.classList.remove("hidden");
+
+    // Set initial state untuk animasi masuk dengan delay kecil
+    setTimeout(() => {
+      hal2.style.transform = "translateX(-100%)"; // Start from left
+      hal2.style.opacity = "0";
+
+      // Force reflow untuk memastikan initial state diterapkan
+      void hal2.offsetHeight;
+
+      setTimeout(() => {
+        hal2.classList.add("active");
+        hal2.style.transform = "translateX(0)"; // Slide in
+        hal2.style.opacity = "1";
+
+        // Show skip button again with animation
+        skipBtn.classList.remove("hidden");
+        skipBtn.classList.add("fade-in");
+        setTimeout(() => skipBtn.classList.remove("fade-in"), 500);
+
+        // Reset conversation to last page
+        typeTextHal2(textHal2Content);
+
+        // Cleanup inline styles setelah animasi selesai (biarkan CSS class yang mengatur)
+        setTimeout(() => {
+          hal2.style.transform = "";
+          hal2.style.opacity = "";
+        }, 600);
+      }, 50);
+    }, 50);
+  }, 600); // Tunggu animasi exit hal3 selesai
 }
