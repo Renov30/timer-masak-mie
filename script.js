@@ -69,18 +69,48 @@ talkView.style.opacity = 0;
 const conversation = [
   [
     "makan mie instan lagi?",
-    "you know.. you really should eat something else",
-    "i mean, look at you",
+    "waduh, lu kayaknya udah jadi bagian dari keluarga indomie nih",
+    "coba deh sesekali makan sayur, biar perut lu nggak jadi pabrik MSG",
   ],
   [
     "mie trooss...",
-    "what? are you trying to save money to buy an iphone?",
-    ".. not worth it pal",
+    "hah? lu ngehemat buat beli iPhone ya?",
+    "tapi kesehatan lu lebih mahal loh, sayang kalau cuma buat beli mie terus",
   ],
   [
     "udah berapa kali lu makan mie bulan ini?",
-    "i don't know who you are, but i'll eat some more vegies if i were you",
-    "you don't want gerd don't you",
+    "kalau diitung mungkin udah lebih banyak dari jumlah hari dalam sebulan",
+    "jangan sampe GERD nempel terus di perut lu, nanti repot sendiri",
+  ],
+  [
+    "mie lagi?",
+    "lu kayaknya lebih setia sama mie daripada sama pacar",
+    "coba deh variasi dikit, sayur-sayuran juga enak loh",
+  ],
+  [
+    "wah, masih mie nih",
+    "kalau terus-terusan begini, nanti darah lu jadi bumbu mie",
+    "mending sekali-kali makan nasi, biar ada variasi",
+  ],
+  [
+    "mie instan lagi ya?",
+    "lu kayaknya udah jadi influencer mie instan tanpa sadar",
+    "tapi influencer yang sehat lebih keren, coba deh makan buah",
+  ],
+  [
+    "hmm, mie lagi?",
+    "kalau ada olimpiade makan mie, lu pasti juara dunia",
+    "tapi juara dunia kesehatan juga penting, jangan lupa sayur",
+  ],
+  [
+    "mie terus-terusan nih",
+    "lu kayaknya lebih kenal sama berbagai merk mie daripada nama tetangga",
+    "coba deh kenalan sama sayur-sayuran, mereka juga teman yang baik",
+  ],
+  [
+    "waduh, mie lagi?",
+    "kalau terus begini, nanti dokter lu bakal kasih resep mie instan",
+    "tapi serius, variasi makanan itu penting, coba deh yang lain",
   ],
 ];
 // pilih conversation dari array: hasilkan angka random dikali jumlah array, jadi karena array (3) maka angka random 0-0.99 dikali 1-3 = contoh hasilnya 0.7 = 1
