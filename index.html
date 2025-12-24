@@ -398,6 +398,62 @@
           font-size: 1.75rem;
         }
       }
+
+      /* CSS untuk Grid View */
+      .grid-item {
+        transition: transform 0.2s ease, opacity 0.2s ease;
+      }
+
+      .grid-item:hover {
+        transform: scale(1.05);
+      }
+
+      .grid-item.selected {
+        opacity: 0.7;
+        transform: scale(0.95);
+      }
+
+      .grid-item-card {
+        background: rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 12px;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .grid-item-card:hover {
+        background: rgba(255, 255, 255, 0.2);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      .grid-item-card.selected {
+        background: rgba(255, 255, 255, 0.3);
+        border-color: rgba(255, 255, 255, 0.7);
+      }
+
+      .grid-item-img {
+        width: 100%;
+        max-width: 120px;
+        height: auto;
+        margin-bottom: 0.5rem;
+      }
+
+      .grid-item-title {
+        font-size: 0.9rem;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .grid-item-detail {
+        font-size: 0.7rem;
+        text-align: center;
+        opacity: 0.9;
+      }
     </style>
     <!-- tailwind css -->
     <link href="./output.css" rel="stylesheet" />
@@ -517,8 +573,9 @@
         </div>
       </div>
       <!-- halaman 3 -->
-      <div id="hal3" class="page hidden w-full">
-        <div class="flex flex-col justify-center items-center">
+      <div id="hal3" class="page hidden w-full relative">
+        <!-- Tampilan Single (default) -->
+        <div id="singleView" class="flex flex-col justify-center items-center">
           <div class="flex items-center">
             <img
               id="noodleImg"
@@ -563,6 +620,17 @@
                 class="w-10 h-10 sm:w-10 sm:h-10 md:w-12 md:h-12 lg:w-14 lg:h-14 object-contain"
               />
             </button>
+          </div>
+        </div>
+
+        <!-- Tampilan Grid (alternatif) -->
+        <div
+          id="gridView"
+          class="hidden flex-col justify-center items-center px-4 py-2"
+          style="display: none"
+        >
+          <div class="grid grid-cols-2 gap-4 w-full max-w-md">
+            <!-- Grid items akan di-generate oleh JavaScript -->
           </div>
         </div>
       </div>
@@ -618,6 +686,15 @@
       class="hidden fixed top-5 bg-white/20 hover:bg-white/50 hover:scale-105 backdrop-blur-sm text-white px-4 py-2 rounded-xl pixelify border border-white/30 transition-all duration-300 cursor-pointer shadow-lg"
     >
       << BACK
+    </button>
+
+    <button
+      id="toggleViewBtn"
+      onclick="toggleMenuView()"
+      style="z-index: 9999; pointer-events: auto; left: auto; right: 2.5rem"
+      class="hidden fixed top-5 bg-white/20 hover:bg-white/50 hover:scale-105 backdrop-blur-sm text-white px-4 py-2 rounded-xl pixelify border border-white/30 transition-all duration-300 cursor-pointer shadow-lg"
+    >
+      <span id="toggleViewText">Grid</span>
     </button>
   </body>
   <!-- javascript -->

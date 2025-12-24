@@ -283,12 +283,19 @@ function next2() {
   backBtn.classList.add("fade-in");
   setTimeout(() => backBtn.classList.remove("fade-in"), 500);
 
+  // Show toggle view button with animation
+  const toggleViewBtn = document.getElementById("toggleViewBtn");
+  toggleViewBtn.classList.remove("hidden");
+  toggleViewBtn.classList.add("fade-in");
+  setTimeout(() => toggleViewBtn.classList.remove("fade-in"), 500);
+
   // Tampilkan hal3 tapi posisinya masih di luar layar kanan
   hal3.classList.remove("hidden");
 
   // Tambahkan delay sedikit agar transisi bisa terpicu
   setTimeout(() => {
     hal3.classList.add("active");
+    updateMenuView(); // Update tampilan menu
   }, 50);
 
   // Setelah animasi selesai, sembunyikan hal2
@@ -328,18 +335,106 @@ const noodles = [
 ];
 // variabel mie ke berapa
 let mieIndex = 0;
+// variabel untuk tracking view mode (single/grid)
+let isGridView = false;
 // variabel komponen informasi mie
 const titleNoodle = document.getElementById("title");
 const imgNoodle = document.getElementById("noodleImg");
 const detailNoodle = document.getElementById("detail");
 const prev = document.getElementById("prevBtn");
 const next = document.getElementById("nextBtn");
+const singleView = document.getElementById("singleView");
+const gridView = document.getElementById("gridView");
+const toggleViewBtn = document.getElementById("toggleViewBtn");
+const toggleViewText = document.getElementById("toggleViewText");
+
 // fungsi ganti mie
 function gantiMie() {
   const mie = noodles[mieIndex];
   titleNoodle.textContent = mie.title;
   imgNoodle.src = mie.img;
   detailNoodle.textContent = mie.detail;
+  // Update grid view selection jika grid view aktif
+  if (isGridView) {
+    updateGridSelection();
+  }
+}
+
+// fungsi untuk generate grid view
+function generateGridView() {
+  const gridContainer = gridView.querySelector(".grid");
+  gridContainer.innerHTML = ""; // Clear existing items
+
+  noodles.forEach((mie, index) => {
+    const gridItem = document.createElement("div");
+    gridItem.className = `grid-item ${index === mieIndex ? "selected" : ""}`;
+    gridItem.innerHTML = `
+      <div class="grid-item-card ${
+        index === mieIndex ? "selected" : ""
+      }" onclick="selectMieFromGrid(${index})">
+        <img src="${mie.img}" alt="${mie.title}" class="grid-item-img" />
+        <p class="pixelify-unresponsive grid-item-title text-white font-bold">${
+          mie.title
+        }</p>
+        <p class="pixelify grid-item-detail text-white">${mie.detail}</p>
+      </div>
+    `;
+    gridContainer.appendChild(gridItem);
+  });
+}
+
+// fungsi untuk select mie dari grid
+function selectMieFromGrid(index) {
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  mieIndex = index;
+  updateGridSelection();
+  gantiMie();
+}
+
+// fungsi untuk update selection di grid view
+function updateGridSelection() {
+  const gridItems = gridView.querySelectorAll(".grid-item");
+  const gridCards = gridView.querySelectorAll(".grid-item-card");
+
+  gridItems.forEach((item, index) => {
+    if (index === mieIndex) {
+      item.classList.add("selected");
+      gridCards[index].classList.add("selected");
+    } else {
+      item.classList.remove("selected");
+      gridCards[index].classList.remove("selected");
+    }
+  });
+}
+
+// fungsi untuk toggle antara single dan grid view
+function toggleMenuView() {
+  clickSound.currentTime = 0;
+  clickSound.play();
+
+  isGridView = !isGridView;
+  updateMenuView();
+}
+
+// fungsi untuk update tampilan menu berdasarkan isGridView
+function updateMenuView() {
+  if (isGridView) {
+    // Switch to grid view
+    singleView.classList.add("hidden");
+    gridView.style.display = "flex";
+    gridView.classList.remove("hidden");
+    toggleViewText.textContent = "Single";
+    generateGridView();
+  } else {
+    // Switch to single view
+    gridView.style.display = "none";
+    gridView.classList.add("hidden");
+    singleView.classList.remove("hidden");
+    toggleViewText.textContent = "Grid";
+    gantiMie(); // Update single view
+  }
 }
 
 function animateMie(direction) {
@@ -469,6 +564,14 @@ function startTimer() {
     backBtn.classList.remove("fade-out");
   }, 500);
 
+  // Hide toggle view button when entering timer with animation
+  const toggleViewBtn = document.getElementById("toggleViewBtn");
+  toggleViewBtn.classList.add("fade-out");
+  setTimeout(() => {
+    toggleViewBtn.classList.add("hidden");
+    toggleViewBtn.classList.remove("fade-out");
+  }, 500);
+
   // Reset hal4 sebelum animasi masuk
   hal4.style.transform = "";
   hal4.style.opacity = "";
@@ -566,12 +669,19 @@ function gotoMenu() {
 
   setTimeout(() => {
     hal3.classList.add("active");
+    updateMenuView(); // Update tampilan menu
 
     // Show back button when returning to menu with animation
     const backBtn = document.getElementById("backBtn");
     backBtn.classList.remove("hidden");
     backBtn.classList.add("fade-in");
     setTimeout(() => backBtn.classList.remove("fade-in"), 500);
+
+    // Show toggle view button when returning to menu with animation
+    const toggleViewBtn = document.getElementById("toggleViewBtn");
+    toggleViewBtn.classList.remove("hidden");
+    toggleViewBtn.classList.add("fade-in");
+    setTimeout(() => toggleViewBtn.classList.remove("fade-in"), 500);
   }, 50);
 
   setTimeout(() => {
@@ -672,12 +782,19 @@ function skipIntro() {
           hal3.classList.add("active");
           hal3.style.transform = "translateX(0)";
           hal3.style.opacity = "1";
+          updateMenuView(); // Update tampilan menu
 
           // Show back button on menu with animation
           const backBtn = document.getElementById("backBtn");
           backBtn.classList.remove("hidden");
           backBtn.classList.add("fade-in");
           setTimeout(() => backBtn.classList.remove("fade-in"), 500);
+
+          // Show toggle view button on menu with animation
+          const toggleViewBtn = document.getElementById("toggleViewBtn");
+          toggleViewBtn.classList.remove("hidden");
+          toggleViewBtn.classList.add("fade-in");
+          setTimeout(() => toggleViewBtn.classList.remove("fade-in"), 500);
         }, 50);
       }, 50);
     }, 600); // Tunggu animasi exit selesai
@@ -711,12 +828,19 @@ function skipIntro() {
         hal3.classList.add("active");
         hal3.style.transform = "translateX(0)";
         hal3.style.opacity = "1";
+        updateMenuView(); // Update tampilan menu
 
         // Show back button on menu with animation
         const backBtn = document.getElementById("backBtn");
         backBtn.classList.remove("hidden");
         backBtn.classList.add("fade-in");
         setTimeout(() => backBtn.classList.remove("fade-in"), 500);
+
+        // Show toggle view button on menu with animation
+        const toggleViewBtn = document.getElementById("toggleViewBtn");
+        toggleViewBtn.classList.remove("hidden");
+        toggleViewBtn.classList.add("fade-in");
+        setTimeout(() => toggleViewBtn.classList.remove("fade-in"), 500);
       }, 50);
     }, 50);
   }
@@ -763,6 +887,14 @@ function goBack() {
   setTimeout(() => {
     backBtn.classList.add("hidden");
     backBtn.classList.remove("fade-out");
+  }, 500);
+
+  // Hide toggle view button with animation
+  const toggleViewBtn = document.getElementById("toggleViewBtn");
+  toggleViewBtn.classList.add("fade-out");
+  setTimeout(() => {
+    toggleViewBtn.classList.add("hidden");
+    toggleViewBtn.classList.remove("fade-out");
   }, 500);
 
   // Reset inline styles dari skipIntro() sebelum animasi exit
