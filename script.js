@@ -414,28 +414,81 @@ function toggleMenuView() {
   clickSound.currentTime = 0;
   clickSound.play();
 
+  // Prevent multiple clicks during animation if needed, but for now just toggle
+  // Ideally, we should check if animation is in progress, but simple implementation first:
+  const toggleViewBtn = document.getElementById("toggleViewBtn");
+  if (toggleViewBtn.style.pointerEvents === "none") return;
+
+  // Disable button during animation
+  toggleViewBtn.style.pointerEvents = "none";
+  setTimeout(() => {
+    toggleViewBtn.style.pointerEvents = "auto";
+  }, 1000); // 500ms fadeOut + 500ms fadeIn
+
   isGridView = !isGridView;
-  updateMenuView();
+  updateMenuView(true);
 }
 
 // fungsi untuk update tampilan menu berdasarkan isGridView
-function updateMenuView() {
-  if (isGridView) {
-    // Switch to grid view
-    singleView.classList.add("hidden");
-    singleView.style.display = "none";
-    gridView.style.display = "flex";
-    gridView.classList.remove("hidden");
-    toggleViewText.textContent = "Single";
-    generateGridView();
+function updateMenuView(animate = false) {
+  if (animate) {
+    const currentView = isGridView ? singleView : gridView;
+    const nextView = isGridView ? gridView : singleView;
+    const btnText = isGridView ? "Single" : "Grid";
+
+    // 1. Animate Out Current View
+    currentView.classList.add("fade-out");
+
+    setTimeout(() => {
+      // 2. Hide Current View
+      currentView.classList.add("hidden");
+      currentView.style.display = "none";
+      currentView.classList.remove("fade-out");
+
+      // 3. Prepare Next View
+      if (isGridView) {
+        gridView.style.display = "flex";
+        generateGridView();
+        // Single view is hidden
+        singleView.classList.add("hidden");
+        singleView.style.display = "none";
+      } else {
+        singleView.style.display = "flex";
+        gantiMie();
+        // Grid view is hidden
+        gridView.classList.add("hidden");
+        gridView.style.display = "none";
+      }
+
+      // 4. Show and Animate In Next View
+      nextView.classList.remove("hidden");
+      nextView.classList.add("fade-in");
+      toggleViewText.textContent = btnText;
+
+      setTimeout(() => {
+        nextView.classList.remove("fade-in");
+      }, 300);
+    }, 300); // duration of fade-out
   } else {
-    // Switch to single view
-    gridView.style.display = "none";
-    gridView.classList.add("hidden");
-    singleView.style.display = "flex";
-    singleView.classList.remove("hidden");
-    toggleViewText.textContent = "Grid";
-    gantiMie(); // Update single view
+    // Original logic (immediate switch)
+    toggleViewBtn.style.pointerEvents = "auto"; // Ensure button is clickable if immediate
+    if (isGridView) {
+      // Switch to grid view
+      singleView.classList.add("hidden");
+      singleView.style.display = "none";
+      gridView.style.display = "flex";
+      gridView.classList.remove("hidden");
+      toggleViewText.textContent = "Single";
+      generateGridView();
+    } else {
+      // Switch to single view
+      gridView.style.display = "none";
+      gridView.classList.add("hidden");
+      singleView.style.display = "flex";
+      singleView.classList.remove("hidden");
+      toggleViewText.textContent = "Grid";
+      gantiMie(); // Update single view
+    }
   }
 }
 
