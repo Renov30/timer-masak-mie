@@ -311,26 +311,44 @@ const noodles = [
   {
     title: "mie rebus biasa",
     img: "img/gambar mie no bg/mie1.png",
-    detail: "waktu masak 3 menit. cocok buat kamu yang suka mie kuah.",
+    detail: "3 menit. cocok buat kamu yang suka mie kuah.",
     time: 180,
   },
   {
     title: "mie goreng biasa",
     img: "img/gambar mie no bg/mie2.png",
-    detail: "waktu masak 3 menit. cocok kalau kamu suka yang kering.",
+    detail: "3 menit. cocok kalau kamu suka yang kering.",
     time: 180,
   },
   {
     title: "mie mentah",
     img: "img/gambar mie no bg/mie3.png",
-    detail: "waktu masak 0 menit. untuk yang suka mie mentah.",
+    detail: "0 menit. untuk yang suka mie mentah.",
     time: 0,
   },
   {
     title: "mie setengah matang",
     img: "img/gambar mie no bg/mie4.png",
-    detail: "waktu masak 1 menit. boleh dicoba kalau kamu anti mainstream.",
+    detail: "1 menit. boleh dicoba kalau kamu anti mainstream.",
     time: 60,
+  },
+  {
+    title: "mie super pedas",
+    img: "img/gambar mie no bg/mie5.png",
+    detail: "3 menit. cocok buat kamu yang suka yang pedas.",
+    time: 180,
+  },
+  {
+    title: "mie benyek",
+    img: "img/gambar mie no bg/mie6.png",
+    detail: "5 menit. kalau kamu suka mie yang benyek.",
+    time: 300,
+  },
+  {
+    title: "spaghetti",
+    img: "img/gambar mie no bg/mie7.png",
+    detail: "10 menit. lho ini bukan mie instan.",
+    time: 600,
   },
 ];
 // variabel mie ke berapa
