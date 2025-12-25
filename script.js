@@ -376,6 +376,7 @@ function generateGridView() {
         <p class="pixelify-unresponsive grid-item-title text-white font-bold">${
           mie.title
         }</p>
+        <p class="pixelify grid-item-detail text-white">${mie.detail}</p>
       </div>
     `;
     gridContainer.appendChild(gridItem);
