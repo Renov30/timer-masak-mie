@@ -333,12 +333,6 @@ const noodles = [
     time: 60,
   },
   {
-    title: "mie super pedas",
-    img: "img/gambar mie no bg/mie5.png",
-    detail: "3 menit. cocok buat kamu yang suka yang pedas.",
-    time: 180,
-  },
-  {
     title: "mie benyek",
     img: "img/gambar mie no bg/mie6.png",
     detail: "5 menit. kalau kamu suka mie yang benyek.",
