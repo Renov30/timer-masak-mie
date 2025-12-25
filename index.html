@@ -402,7 +402,24 @@
       /* CSS untuk Grid View */
       #gridView {
         overflow-x: hidden;
-        display: block !important;
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
+
+      #gridView.hidden {
+        display: none !important;
+      }
+
+      #singleView.hidden {
+        display: none !important;
+      }
+
+      #gridView:not(.hidden) {
+        display: flex;
+      }
+
+      #singleView:not(.hidden) {
+        display: flex;
       }
 
       #gridView .grid {
@@ -477,7 +494,7 @@
       }
 
       .grid-item-title {
-        font-size: 0.7rem;
+        font-size: 1rem;
         text-align: center;
         margin-bottom: 0.2rem;
         line-height: 1.2;
@@ -505,7 +522,7 @@
         }
 
         .grid-item-title {
-          font-size: 0.8rem;
+          font-size: 1.2rem;
           margin-bottom: 0.25rem;
         }
 
@@ -534,7 +551,7 @@
         }
 
         .grid-item-title {
-          font-size: 0.9rem;
+          font-size: 1.3rem;
         }
 
         .grid-item-detail {
@@ -662,7 +679,11 @@
       <!-- halaman 3 -->
       <div id="hal3" class="page hidden w-full relative">
         <!-- Tampilan Single (default) -->
-        <div id="singleView" class="flex flex-col justify-center items-center">
+        <div
+          id="singleView"
+          class="flex flex-col justify-center items-center"
+          style="display: flex"
+        >
           <div class="flex items-center">
             <img
               id="noodleImg"
@@ -711,11 +732,7 @@
         </div>
 
         <!-- Tampilan Grid (alternatif) -->
-        <div
-          id="gridView"
-          class="hidden w-full px-2 py-2"
-          style="display: none"
-        >
+        <div id="gridView" class="hidden w-full py-2" style="display: none">
           <div class="grid grid-cols-2 gap-2 w-full" style="display: grid">
             <!-- Grid items akan di-generate oleh JavaScript -->
           </div>

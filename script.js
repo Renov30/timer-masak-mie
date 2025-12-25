@@ -422,6 +422,7 @@ function updateMenuView() {
   if (isGridView) {
     // Switch to grid view
     singleView.classList.add("hidden");
+    singleView.style.display = "none";
     gridView.style.display = "flex";
     gridView.classList.remove("hidden");
     toggleViewText.textContent = "Single";
@@ -430,6 +431,7 @@ function updateMenuView() {
     // Switch to single view
     gridView.style.display = "none";
     gridView.classList.add("hidden");
+    singleView.style.display = "flex";
     singleView.classList.remove("hidden");
     toggleViewText.textContent = "Grid";
     gantiMie(); // Update single view
