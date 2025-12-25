@@ -555,6 +555,8 @@ gantiMie();
 const hal4 = document.getElementById("hal4");
 // variabel untuk tampilkan timer
 const timerDisplay = hal4.querySelector("h1");
+// variabel gambar mie di timer
+const timerNoodleImg = document.getElementById("timerNoodleImg");
 // variabel tombol pause dan reset
 const pauseBtn = document.getElementById("pauseBtn");
 const resetBtn = document.getElementById("resetBtn");
@@ -668,6 +670,9 @@ function startTimer() {
 
   // ambil waktu dari object mie yang dipilih
   timeLeft = noodles[mieIndex].time;
+  // update gambar mie di timer sesuai pilihan
+  timerNoodleImg.src = noodles[mieIndex].img;
+
   // tampilkan waktu di awal (kirim timeleft ke updatetimerdisplay)
   updateTimerDisplay(timeLeft);
 
