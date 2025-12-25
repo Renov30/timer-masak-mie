@@ -397,12 +397,10 @@ function generateGridView() {
 
 // fungsi untuk select mie dari grid
 function selectMieFromGrid(index) {
-  clickSound.currentTime = 0;
-  clickSound.play();
-
   mieIndex = index;
   updateGridSelection();
   gantiMie();
+  startTimer();
 }
 
 // fungsi untuk update selection di grid view
