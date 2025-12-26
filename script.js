@@ -360,11 +360,31 @@ const gridView = document.getElementById("gridView");
 const toggleViewBtn = document.getElementById("toggleViewBtn");
 const toggleViewText = document.getElementById("toggleViewText");
 
+// fungsi helper untuk generate srcset string
+function getSrcSet(imgPath) {
+  // Hanya proses jika file png dan ada di folder mie (asumsi user sudah generate webp sesuai format)
+  if (imgPath.endsWith(".png")) {
+    const baseW300 = imgPath.replace(".png", "-300.webp");
+    const baseW600 = imgPath.replace(".png", "-600.webp");
+    return `${baseW300} 300w, ${baseW600} 600w`;
+  }
+  return ""; // Return empty string if not matching format
+}
+
 // fungsi ganti mie
 function gantiMie() {
   const mie = noodles[mieIndex];
   titleNoodle.textContent = mie.title;
   imgNoodle.src = mie.img;
+
+  // Update srcset dan sizes untuk responsive image yang tepat
+  const srcSetVal = getSrcSet(mie.img);
+  if (srcSetVal) {
+    imgNoodle.srcset = srcSetVal;
+    // Ukuran estimasi: di mobile sekitar 240px (w-60), di desktop 320px
+    imgNoodle.sizes = "(max-width: 640px) 240px, 320px";
+  }
+
   detailNoodle.textContent = mie.detail;
   // Update grid view selection jika grid view aktif
   if (isGridView) {
@@ -380,11 +400,20 @@ function generateGridView() {
   noodles.forEach((mie, index) => {
     const gridItem = document.createElement("div");
     gridItem.className = `grid-item ${index === mieIndex ? "selected" : ""}`;
+    const srcSetVal = getSrcSet(mie.img);
+
+    // Tambahkan loading="lazy", srcset, dan sizes
     gridItem.innerHTML = `
       <div class="grid-item-card ${
         index === mieIndex ? "selected" : ""
       }" onclick="selectMieFromGrid(${index})">
-        <img src="${mie.img}" alt="${mie.title}" class="grid-item-img" />
+        <img 
+          src="${mie.img}"
+          ${srcSetVal ? `srcset="${srcSetVal}"` : ""}
+          sizes="(max-width: 640px) 150px, 180px"
+          loading="lazy"
+          alt="${mie.title}" 
+          class="grid-item-img" />
         <p class="pixelify-unresponsive grid-item-title text-white font-bold">${
           mie.title
         }</p>
@@ -519,7 +548,16 @@ function animateMie(direction) {
   setTimeout(() => {
     // ubah data mie
     const mie = noodles[mieIndex];
+
+    // Update src dan srcset saat animasi
     oldImg.src = mie.img;
+    const srcSetVal = getSrcSet(mie.img);
+    if (srcSetVal) {
+      oldImg.srcset = srcSetVal;
+    } else {
+      oldImg.removeAttribute("srcset");
+    }
+
     titleNoodle.textContent = mie.title;
     detailNoodle.textContent = mie.detail;
 
@@ -672,6 +710,13 @@ function startTimer() {
   timeLeft = noodles[mieIndex].time;
   // update gambar mie di timer sesuai pilihan
   timerNoodleImg.src = noodles[mieIndex].img;
+
+  // Update srcset untuk timer image
+  const srcSetVal = getSrcSet(noodles[mieIndex].img);
+  if (srcSetVal) {
+    timerNoodleImg.srcset = srcSetVal;
+    timerNoodleImg.sizes = "(max-width: 640px) 240px, 320px";
+  }
 
   // tampilkan waktu di awal (kirim timeleft ke updatetimerdisplay)
   updateTimerDisplay(timeLeft);
