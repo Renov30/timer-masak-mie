@@ -310,37 +310,37 @@ function next2() {
 const noodles = [
   {
     title: "mie rebus biasa",
-    img: "img/gambar mie no bg/mie1.png",
+    img: "img/gambar mie no bg/mie1-600.webp",
     detail: "3 menit. cocok buat kamu yang suka mie kuah.",
     time: 180,
   },
   {
     title: "mie goreng biasa",
-    img: "img/gambar mie no bg/mie2.png",
+    img: "img/gambar mie no bg/mie2-600.webp",
     detail: "3 menit. cocok kalau kamu suka yang kering.",
     time: 180,
   },
   {
     title: "mie mentah",
-    img: "img/gambar mie no bg/mie3.png",
+    img: "img/gambar mie no bg/mie3-600.webp",
     detail: "0 menit. untuk yang suka mie mentah.",
     time: 0,
   },
   {
     title: "mie setengah matang",
-    img: "img/gambar mie no bg/mie4.png",
+    img: "img/gambar mie no bg/mie4-600.webp",
     detail: "1 menit. boleh dicoba kalau kamu anti mainstream.",
     time: 60,
   },
   {
     title: "mie benyek",
-    img: "img/gambar mie no bg/mie6.png",
+    img: "img/gambar mie no bg/mie6-600.webp",
     detail: "5 menit. kalau kamu suka mie yang benyek.",
     time: 300,
   },
   {
     title: "spaghetti",
-    img: "img/gambar mie no bg/mie7.png",
+    img: "img/gambar mie no bg/mie7-600.webp",
     detail: "10 menit. lho ini bukan mie instan.",
     time: 600,
   },
@@ -362,13 +362,18 @@ const toggleViewText = document.getElementById("toggleViewText");
 
 // fungsi helper untuk generate srcset string
 function getSrcSet(imgPath) {
-  // Hanya proses jika file png dan ada di folder mie (asumsi user sudah generate webp sesuai format)
+  // Handle webp input directly
+  if (imgPath.endsWith("-600.webp")) {
+    const baseW300 = imgPath.replace("-600.webp", "-300.webp");
+    return `${baseW300} 300w, ${imgPath} 600w`;
+  }
+  // Fallback for png if still used (though we updated data)
   if (imgPath.endsWith(".png")) {
     const baseW300 = imgPath.replace(".png", "-300.webp");
     const baseW600 = imgPath.replace(".png", "-600.webp");
     return `${baseW300} 300w, ${baseW600} 600w`;
   }
-  return ""; // Return empty string if not matching format
+  return "";
 }
 
 // fungsi ganti mie
