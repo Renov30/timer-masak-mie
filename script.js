@@ -358,7 +358,8 @@ const next = document.getElementById("nextBtn");
 const singleView = document.getElementById("singleView");
 const gridView = document.getElementById("gridView");
 const toggleViewBtn = document.getElementById("toggleViewBtn");
-const toggleViewText = document.getElementById("toggleViewText");
+const iconGrid = document.getElementById("iconGrid");
+const iconSingle = document.getElementById("iconSingle");
 
 // fungsi helper untuk generate srcset string
 function getSrcSet(imgPath) {
@@ -478,7 +479,6 @@ function updateMenuView(animate = false) {
   if (animate) {
     const currentView = isGridView ? singleView : gridView;
     const nextView = isGridView ? gridView : singleView;
-    const btnText = isGridView ? "Single" : "Grid";
 
     // 1. Animate Out Current View
     currentView.classList.add("fade-out");
@@ -507,7 +507,17 @@ function updateMenuView(animate = false) {
       // 4. Show and Animate In Next View
       nextView.classList.remove("hidden");
       nextView.classList.add("fade-in");
-      toggleViewText.textContent = btnText;
+
+      // Update Icons
+      if (isGridView) {
+        // Mode Grid: tombol untuk ke Single
+        iconGrid.classList.add("hidden");
+        iconSingle.classList.remove("hidden");
+      } else {
+        // Mode Single: tombol untuk ke Grid
+        iconSingle.classList.add("hidden");
+        iconGrid.classList.remove("hidden");
+      }
 
       setTimeout(() => {
         nextView.classList.remove("fade-in");
@@ -515,23 +525,29 @@ function updateMenuView(animate = false) {
     }, 300); // duration of fade-out
   } else {
     // Original logic (immediate switch)
-    toggleViewBtn.style.pointerEvents = "auto"; // Ensure button is clickable if immediate
+    toggleViewBtn.style.pointerEvents = "auto";
     if (isGridView) {
       // Switch to grid view
       singleView.classList.add("hidden");
       singleView.style.display = "none";
       gridView.style.display = "flex";
       gridView.classList.remove("hidden");
-      toggleViewText.textContent = "Single";
       generateGridView();
+
+      // Update Icons
+      iconGrid.classList.add("hidden");
+      iconSingle.classList.remove("hidden");
     } else {
       // Switch to single view
       gridView.style.display = "none";
       gridView.classList.add("hidden");
       singleView.style.display = "flex";
       singleView.classList.remove("hidden");
-      toggleViewText.textContent = "Grid";
-      gantiMie(); // Update single view
+      gantiMie();
+
+      // Update Icons
+      iconSingle.classList.add("hidden");
+      iconGrid.classList.remove("hidden");
     }
   }
 }
